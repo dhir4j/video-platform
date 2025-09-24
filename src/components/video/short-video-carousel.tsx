@@ -20,6 +20,7 @@ import type { Video } from "@/lib/types"
 import { getUser } from "@/lib/data"
 import { CommentThread } from "../comments/comment-thread"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -34,11 +35,30 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
     if (!api) {
       return
     }
-    api.scrollTo(startIndex, true)
-  }, [api, startIndex])
+
+    // When the carousel is selected, update the URL
+    api.on("select", () => {
+      const selectedVideoId = videos[api.selectedScrollSnap()].id;
+      window.history.replaceState(null, '', `/shorts/${selectedVideoId}`)
+    })
+
+    // Initial scroll to start index
+    if(api.scrollSnapList().length > startIndex) {
+        api.scrollTo(startIndex, true);
+    }
+
+  }, [api, startIndex, videos])
 
   return (
-    <Carousel setApi={setApi} className="w-full h-full" orientation="vertical">
+    <Carousel 
+        setApi={setApi} 
+        className="w-full h-full" 
+        orientation="vertical"
+        opts={{
+            align: "start",
+            loop: true,
+        }}
+    >
       <CarouselContent className="-mt-0 h-full">
         {videos.map((video) => {
             const uploader = getUser(video.uploaderId)
@@ -63,14 +83,16 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
 
                     <div className="absolute bottom-20 left-4 right-4 text-white z-10 space-y-3">
                         <div className="flex items-center gap-3">
-                            <Avatar>
-                                <AvatarImage src={uploader?.avatarUrl} />
-                                <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <h3 className="font-bold">{uploader?.name}</h3>
-                                <p className="text-xs text-white/80">{video.uploaderId}</p>
-                            </div>
+                            <Link href="/profile" className="flex items-center gap-3">
+                                <Avatar>
+                                    <AvatarImage src={uploader?.avatarUrl} />
+                                    <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                    <h3 className="font-bold">{uploader?.name}</h3>
+                                </div>
+                            </Link>
+                            <Button size="sm" variant="outline" className="text-white border-white bg-transparent hover:bg-white hover:text-black">Follow</Button>
                         </div>
                         <p className="text-sm">{video.description}</p>
                     </div>
