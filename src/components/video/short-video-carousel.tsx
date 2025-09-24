@@ -10,8 +10,6 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel"
-import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -28,18 +26,15 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
     const handleSelect = (api: CarouselApi) => {
       if (videos.length === 0) return;
       const selectedVideoId = videos[api.selectedScrollSnap()].id;
-      // Update URL without navigating
       window.history.replaceState(null, '', `/shorts/${selectedVideoId}`)
     };
     
     api.on("select", handleSelect);
 
-    // Set initial scroll snap
     if(startIndex > 0 && api.scrollSnapList().length > startIndex) {
         api.scrollTo(startIndex, true);
     }
     
-    // Set initial URL
     if (videos.length > 0) {
       const initialVideoId = videos[api.selectedScrollSnap()].id;
       if(initialVideoId) {
@@ -64,7 +59,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
   return (
     <Carousel 
         setApi={setApi} 
-        className="w-full h-full" 
+        className="w-full h-screen"
         orientation="vertical"
         opts={{
             align: "start",
@@ -72,9 +67,9 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
             startIndex: startIndex,
         }}
     >
-      <CarouselContent className="-mt-0 h-full">
+      <CarouselContent className="h-full">
           {videos.map((video, index) => (
-            <CarouselItem key={video.id} className="pt-0 h-full">
+            <CarouselItem key={video.id} className="h-full">
                <div className="w-full h-full bg-slate-900 flex items-center justify-center rounded-none border-none text-white">
                 <div className="text-center">
                   <h1 className="text-6xl font-bold">{index + 1}</h1>
