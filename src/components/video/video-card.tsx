@@ -111,9 +111,6 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
               </>
             )}
 
-            {video.type === 'short' && (
-              <Badge variant="default" className="absolute top-2 left-2 bg-primary text-primary-foreground">Short</Badge>
-            )}
             <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-1.5 py-0.5 rounded">
                 1:23
             </div>
