@@ -1,3 +1,184 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user1",
+      "description": "User avatar 1",
+      "imageUrl": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user2",
+      "description": "User avatar 2",
+      "imageUrl": "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user3",
+      "description": "User avatar 3",
+      "imageUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user4",
+      "description": "User avatar 4",
+      "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzU4NjkxNjE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user5",
+      "description": "User avatar 5",
+      "imageUrl": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user6",
+      "description": "User avatar 6",
+      "imageUrl": "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user7",
+      "description": "User avatar 7",
+      "imageUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzU4NjkxNjE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user8",
+      "description": "User avatar 8",
+      "imageUrl": "https://images.unsplash.com/flagged/photo-1595514191830-3e96a518989b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user9",
+      "description": "User avatar 9",
+      "imageUrl": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "user10",
+      "description": "User avatar 10",
+      "imageUrl": "https://images.unsplash.com/photo-1590086782792-42dd2350140d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NTg2OTE2MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "long_video_1",
+      "description": "Long video thumbnail 1",
+      "imageUrl": "https://images.unsplash.com/photo-1649841432772-a6ce266a5019?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhYnN0cmFjdCUyMG5lb258ZW58MHx8fHwxNzU4NzIwMzE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract neon"
+    },
+    {
+      "id": "long_video_2",
+      "description": "Long video thumbnail 2",
+      "imageUrl": "https://images.unsplash.com/photo-1506606401543-2e73709cebb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaXR5JTIwbmlnaHR8ZW58MHx8fHwxNzU4Njg1Mzc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city night"
+    },
+    {
+      "id": "long_video_3",
+      "description": "Long video thumbnail 3",
+      "imageUrl": "https://images.unsplash.com/photo-1640184713839-9b87bde3cba5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZnV0dXJpc3RpYyUyMHRlY2hub2xvZ3l8ZW58MHx8fHwxNzU4NzM1NTU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic technology"
+    },
+    {
+      "id": "long_video_4",
+      "description": "Long video thumbnail 4",
+      "imageUrl": "https://images.unsplash.com/photo-1716845943769-5ea6af684582?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnbG93aW5nJTIwbGluZXN8ZW58MHx8fHwxNzU4NzQwMzgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "glowing lines"
+    },
+    {
+      "id": "long_video_5",
+      "description": "Long video thumbnail 5",
+      "imageUrl": "https://images.unsplash.com/photo-1712953544622-b8116efaf31d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx2aWJyYW50JTIwY29sb3JzfGVufDB8fHx8MTc1ODcxNTA3MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vibrant colors"
+    },
+    {
+      "id": "long_video_6",
+      "description": "Long video thumbnail 6",
+      "imageUrl": "https://images.unsplash.com/photo-1689443111130-6e9c7dfd8f9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3liZXJwdW5rJTIwYWVzdGhldGljfGVufDB8fHx8MTc1ODc0MDM4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cyberpunk aesthetic"
+    },
+    {
+      "id": "long_video_7",
+      "description": "Long video thumbnail 7",
+      "imageUrl": "https://images.unsplash.com/photo-1635322966219-b75ed372eb01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkaWdpdGFsJTIwYXJ0fGVufDB8fHx8MTc1ODY5MzQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "digital art"
+    },
+    {
+      "id": "long_video_8",
+      "description": "Long video thumbnail 8",
+      "imageUrl": "https://images.unsplash.com/photo-1439792675105-701e6a4ab6f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkYXJrJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dark landscape"
+    },
+    {
+      "id": "long_video_9",
+      "description": "Long video thumbnail 9",
+      "imageUrl": "https://images.unsplash.com/photo-1631610039335-3de4e10e13c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYW50YXN5JTIwd29ybGR8ZW58MHx8fHwxNzU4NzIwNjg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fantasy world"
+    },
+    {
+      "id": "long_video_10",
+      "description": "Long video thumbnail 10",
+      "imageUrl": "https://images.unsplash.com/photo-1625113538249-a832327131cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZXRybyUyMHdhdmV8ZW58MHx8fHwxNzU4NzM5NzM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "retro wave"
+    },
+    {
+      "id": "short_video_1",
+      "description": "Short video thumbnail 1",
+      "imageUrl": "https://images.unsplash.com/photo-1578476716036-19df8e6dcb22?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwb3J0cmFpdCUyMG1vZGVsfGVufDB8fHx8MTc1ODc0MDM4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "portrait model"
+    },
+    {
+      "id": "short_video_2",
+      "description": "Short video thumbnail 2",
+      "imageUrl": "https://images.unsplash.com/photo-1641839227948-0a1033b7e85e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZmFzaGlvbiUyMHN0eWxlfGVufDB8fHx8MTc1ODcwNzY3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion style"
+    },
+    {
+      "id": "short_video_3",
+      "description": "Short video thumbnail 3",
+      "imageUrl": "https://images.unsplash.com/photo-1731952661356-22abb4c32343?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkYW5jaW5nJTIwbGlnaHRzfGVufDB8fHx8MTc1ODYyOTY4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dancing lights"
+    },
+    {
+      "id": "short_video_4",
+      "description": "Short video thumbnail 4",
+      "imageUrl": "https://images.unsplash.com/photo-1596311087104-86dba6be2aad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx1cmJhbiUyMHN0cmVldHxlbnwwfHx8fDE3NTg2MjgzMzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "urban street"
+    },
+    {
+      "id": "short_video_5",
+      "description": "Short video thumbnail 5",
+      "imageUrl": "https://images.unsplash.com/photo-1566421399596-c9a8689f5211?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2xvd2luZyUyMHBvcnRyYWl0fGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "glowing portrait"
+    },
+    {
+      "id": "short_video_6",
+      "description": "Short video thumbnail 6",
+      "imageUrl": "https://images.unsplash.com/photo-1580747182688-aa1f07847e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxuZW9uJTIwc2lnbnN8ZW58MHx8fHwxNzU4NjQxMTI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "neon signs"
+    },
+    {
+      "id": "short_video_7",
+      "description": "Short video thumbnail 7",
+      "imageUrl": "https://images.unsplash.com/photo-1588683301876-3c135dc6305c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjbG9zZSUyMHVwfGVufDB8fHx8MTc1ODc0MDM4MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "close up"
+    },
+    {
+      "id": "short_video_8",
+      "description": "Short video thumbnail 8",
+      "imageUrl": "https://images.unsplash.com/photo-1544502062-f82887f03d1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzaWxob3VldHRlfGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "silhouette"
+    },
+    {
+      "id": "short_video_9",
+      "description": "Short video thumbnail 9",
+      "imageUrl": "https://images.unsplash.com/photo-1671955100855-074bf3f3db3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhcnRpc3RpY3xlbnwwfHx8fDE3NTg3NDAzODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "artistic"
+    },
+    {
+      "id": "short_video_10",
+      "description": "Short video thumbnail 10",
+      "imageUrl": "https://images.unsplash.com/photo-1573753068299-693aa39519aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx2aWJyYW50JTIwbWFrZXVwfGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vibrant makeup"
+    }
+  ]
 }
