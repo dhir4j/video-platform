@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Video } from '@/lib/types';
@@ -29,15 +30,21 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
               alt={video.title}
               width={isVertical ? 360 : 640}
               height={isVertical ? 640 : 360}
-              className={cn("object-cover w-full transition-transform duration-300 group-hover:scale-105", isVertical ? "aspect-[9/16]" : "aspect-video")}
+              className={cn(
+                "object-cover w-full transition-transform duration-300 group-hover:scale-105", 
+                isVertical ? "aspect-[9/16]" : "aspect-video"
+              )}
               data-ai-hint={video.type === 'short' ? 'portrait model' : 'abstract neon'}
             />
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
                <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
             </div>
             {video.type === 'short' && (
-              <Badge variant="destructive" className="absolute top-2 left-2 bg-primary text-primary-foreground">Short</Badge>
+              <Badge variant="default" className="absolute top-2 left-2 bg-primary text-primary-foreground">Short</Badge>
             )}
+            <div className="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-1.5 py-0.5 rounded">
+                1:23
+            </div>
           </div>
           <div className="p-3 space-y-2">
             <h3 className="font-semibold text-base leading-tight truncate group-hover:text-primary transition-colors">{video.title}</h3>

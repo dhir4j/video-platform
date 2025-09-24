@@ -1,23 +1,13 @@
+
 "use client"
 
 import React from "react";
-import { usePathname } from "next/navigation";
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "./app-sidebar";
 import { Header } from "./header";
 import { BottomNavbar } from "./bottom-navbar";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  // The new shorts layout handles its own structure, so the main AppShell should not render for those paths.
-  const isShortsPage = pathname.startsWith('/shorts');
-
-  if (isShortsPage) {
-    // Return children directly, the shorts layout will wrap them.
-    return <>{children}</>;
-  }
-
-  // Default layout for all other pages
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen w-screen overflow-hidden">

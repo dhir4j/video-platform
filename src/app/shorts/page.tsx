@@ -1,22 +1,27 @@
 
 import { getVideos } from "@/lib/data";
-import { redirect } from "next/navigation";
+import { VideoCard } from "@/components/video/video-card";
 
-// This page now acts as an entry point to the shorts feed.
-// It finds the first short video and redirects to its dedicated page.
 export default function AllShortsPage() {
     const allVideos = getVideos();
-    const firstShort = allVideos.find(v => v.type === 'short');
+    const shortVideos = allVideos.filter(v => v.type === 'short');
     
-    if (firstShort) {
-        redirect(`/shorts/${firstShort.id}`);
+    if (shortVideos.length === 0) {
+        return (
+            <div className="h-full flex items-center justify-center">
+                <p>No shorts available.</p>
+            </div>
+        )
     }
 
-    // If there are no short videos, show a message.
-    // This could be styled better in a real app.
     return (
-        <div className="h-full bg-black flex items-center justify-center text-white">
-            <p>No shorts available.</p>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight mb-6">Shorts</h1>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+            {shortVideos.map((video) => (
+                <VideoCard key={video.id} video={video} orientation="vertical" />
+            ))}
         </div>
+      </div>
     )
 }
