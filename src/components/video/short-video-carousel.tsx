@@ -65,7 +65,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
   }, [api, startIndex, videos, router]);
 
   return (
-    <div className="h-screen w-full relative bg-black">
+    <div className="h-full w-full relative bg-black">
         <Carousel 
             setApi={setApi} 
             className="w-full h-full" 
@@ -77,19 +77,15 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
             }}
         >
         <CarouselContent className="-mt-0 h-full">
-            {videos.map((video) => {
+            {videos.map((video, index) => {
                 const uploader = getUser(video.uploaderId)
                 return (
                     <CarouselItem key={video.id} className="pt-0 relative h-full">
                         <div className="w-full h-full bg-black flex items-center justify-center">
-                            <Image
-                                src={video.thumbnailUrl}
-                                alt={video.title}
-                                fill
-                                className="object-contain h-full w-auto"
-                                data-ai-hint="portrait model"
-                                priority
-                            />
+                            {/* Dummy Placeholder */}
+                            <div className="w-full h-full flex items-center justify-center bg-gray-800">
+                                <span className="text-white text-2xl">Video {index + 1}</span>
+                            </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                         </div>
 
