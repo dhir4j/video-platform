@@ -6,18 +6,18 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "./app-sidebar";
 import { Header } from "./header";
 import { BottomNavbar } from "./bottom-navbar";
-import { cn } from "@/lib/utils";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isShortsPage = pathname.startsWith('/shorts');
 
   if (isShortsPage) {
+    // The shorts-specific layout will handle the shell structure
     return (
-      <>
-        {children}
-        <BottomNavbar />
-      </>
+        <>
+            {children}
+            <BottomNavbar />
+        </>
     );
   }
 
