@@ -4,8 +4,6 @@ import Link from "next/link";
 import { 
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
@@ -14,7 +12,7 @@ import {
   SidebarSeparator
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Flame, Upload, User, Settings, Clapperboard } from "lucide-react";
+import { Flame, User, Settings, Clapperboard, ListFilter } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { getUser } from "@/lib/data";
 
@@ -26,7 +24,7 @@ export function AppSidebar() {
   const menuItems = [
     { href: "/", icon: <Clapperboard />, label: "Video", tooltip: "Video" },
     { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
-    { href: "/upload", icon: <Upload />, label: "Upload", tooltip: "Upload" },
+    { href: "/categories", icon: <ListFilter />, label: "Categories", tooltip: "Categories" },
     { href: "/profile", icon: <User />, label: "Profile", tooltip: "Profile" },
   ];
 
