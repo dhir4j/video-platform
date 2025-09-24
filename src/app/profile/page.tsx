@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VideoCard } from "@/components/video/video-card";
-import { Settings } from "lucide-react";
+import { Settings, PlusSquare } from "lucide-react";
 
 export default function ProfilePage() {
   // In a real app, you'd get the logged-in user's ID
@@ -48,6 +48,10 @@ export default function ProfilePage() {
         <div className="flex gap-2">
             <Button>Follow</Button>
             <Button variant="outline">Message</Button>
+            <Button variant="secondary">
+                <PlusSquare className="mr-2 h-4 w-4" />
+                Upload
+            </Button>
             <Button variant="ghost" size="icon">
                 <Settings />
             </Button>
