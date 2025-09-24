@@ -14,12 +14,21 @@ import {
   SidebarSeparator
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Globe, Tag, Settings, LogOut, Clapperboard } from "lucide-react";
-import { getCountries, getTags } from "@/lib/data";
+import { Home, Flame, Upload, User, Settings, LogOut, Clapperboard } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { getUser } from "@/lib/data";
+
 
 export function AppSidebar() {
-  const countries = getCountries();
-  const tags = getTags();
+  const pathname = usePathname();
+  const user = getUser("user_1");
+
+  const menuItems = [
+    { href: "/", icon: <Home />, label: "Home", tooltip: "Home" },
+    { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
+    { href: "/upload", icon: <Upload />, label: "Upload", tooltip: "Upload" },
+    { href: "/profile", icon: <User />, label: "Profile", tooltip: "Profile" },
+  ];
 
   return (
     <Sidebar>
@@ -30,46 +39,21 @@ export function AppSidebar() {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Categories</SidebarGroupLabel>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Countries">
-                <Globe />
-                <span>Countries</span>
-              </SidebarMenuButton>
+        <SidebarMenu>
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <Link href={item.href} className="w-full">
+                <SidebarMenuButton
+                  tooltip={item.tooltip}
+                  isActive={pathname === item.href}
+                >
+                  {item.icon}
+                  <span>{item.label}</span>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
-            <SidebarMenu className="mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden">
-              {countries.map(country => (
-                <SidebarMenuItem key={country}>
-                  <Link href={`/country/${country.toLowerCase()}`} className="w-full">
-                    <SidebarMenuButton size="sm" className="w-full justify-start">
-                      {country}
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-
-             <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Tags">
-                <Tag />
-                <span>Tags</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-             <SidebarMenu className="mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden">
-              {tags.map(tag => (
-                <SidebarMenuItem key={tag}>
-                  <Link href={`/tag/${tag.toLowerCase()}`} className="w-full">
-                    <SidebarMenuButton size="sm" className="w-full justify-start">
-                      #{tag}
-                    </SidebarMenuButton>
-                  </Link>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarMenu>
-        </SidebarGroup>
+          ))}
+        </SidebarMenu>
       </SidebarContent>
       <SidebarSeparator />
       <SidebarFooter>
@@ -81,9 +65,12 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Logout">
-              <LogOut />
-              <span>Logout</span>
+            <SidebarMenuButton tooltip={user?.name}>
+              <Avatar className="h-7 w-7">
+                <AvatarImage src={user?.avatarUrl} alt={user?.name} />
+                <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
+              </Avatar>
+              <span className="truncate">{user?.name}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
