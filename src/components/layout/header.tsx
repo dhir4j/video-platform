@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import { Search, Upload, User as UserIcon } from "lucide-react";
+import { Search, User as UserIcon } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -34,12 +34,6 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-4">
-        <Link href="/upload">
-          <Button>
-            <Upload className="mr-2 h-4 w-4" />
-            Upload
-          </Button>
-        </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
