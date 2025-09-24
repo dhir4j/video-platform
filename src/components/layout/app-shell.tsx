@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isShortsPage = pathname.includes('/shorts');
+  const isShortsPage = pathname.startsWith('/shorts');
 
   if (isShortsPage) {
     return <main>{children}</main>;

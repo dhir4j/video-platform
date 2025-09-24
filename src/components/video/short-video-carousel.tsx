@@ -3,6 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 import {
   Carousel,
@@ -27,6 +28,7 @@ interface ShortVideoCarouselProps {
 
 export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>()
+  const router = useRouter();
 
   React.useEffect(() => {
     if (!api) {
@@ -54,11 +56,11 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                     </div>
 
-                    <Link href="/" className="absolute top-6 left-6 z-20">
-                        <Button variant="ghost" size="icon" className="rounded-full bg-black/50 hover:bg-black/70 text-white">
+                    <div className="absolute top-6 left-6 z-20">
+                        <Button variant="ghost" size="icon" className="rounded-full bg-black/50 hover:bg-black/70 text-white" onClick={() => router.back()}>
                             <X className="h-6 w-6" />
                         </Button>
-                    </Link>
+                    </div>
 
                     <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10 space-y-3">
                         <div className="flex items-center gap-3">
