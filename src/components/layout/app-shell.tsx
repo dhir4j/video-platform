@@ -20,7 +20,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Header />
           <main className={cn(
             "flex-1",
-            isShortsPage ? "bg-black overflow-hidden" : "overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
+            isShortsPage ? "bg-black" : "overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
           )}>
             {children}
           </main>

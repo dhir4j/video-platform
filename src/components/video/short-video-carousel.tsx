@@ -82,10 +82,13 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
                 return (
                     <CarouselItem key={video.id} className="pt-0 relative h-full">
                         <div className="w-full h-full bg-black flex items-center justify-center">
-                            {/* Dummy Placeholder */}
-                            <div className="w-full h-full flex items-center justify-center bg-gray-800">
-                                <span className="text-white text-2xl">Video {index + 1}</span>
-                            </div>
+                            <Image
+                                src={video.thumbnailUrl}
+                                alt={video.title}
+                                fill
+                                className="object-contain"
+                                data-ai-hint="portrait model"
+                            />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                         </div>
 
@@ -116,7 +119,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
                                 <Heart className="w-8 h-8"/>
                                 <span className="text-xs font-bold">{video.likes.toLocaleString()}</span>
                             </Button>
-                            <Sheet>
+                             <Sheet>
                                 <SheetTrigger asChild>
                                     <Button variant="ghost" className="flex flex-col h-auto p-2 gap-1 text-white hover:text-accent">
                                         <MessageCircle className="w-8 h-8"/>
