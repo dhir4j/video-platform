@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react";
+import { usePathname } from "next/navigation";
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "./app-sidebar";
 import { Header } from "./header";
@@ -8,6 +9,17 @@ import { BottomNavbar } from "./bottom-navbar";
 import { cn } from "@/lib/utils";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isShortsPage = pathname.startsWith('/shorts');
+
+  if (isShortsPage) {
+    return (
+      <>
+        {children}
+      </>
+    );
+  }
+  
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen w-screen overflow-hidden">
