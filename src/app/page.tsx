@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   Carousel,
   CarouselContent,
@@ -21,19 +20,19 @@ export default function HomePage() {
         <Carousel opts={{ align: 'start', loop: true }}>
           <CarouselContent>
             {shortVideos.map((video) => (
-              <CarouselItem key={video.id} className="basis-1/2 md:basis-1/3 lg:basis-1/5">
+              <CarouselItem key={video.id} className="basis-11/12 md:basis-1/3 lg:basis-1/5">
                 <VideoCard video={video} orientation="vertical" />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden lg:flex" />
-          <CarouselNext className="hidden lg:flex" />
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
       </section>
 
       <section>
         <h2 className="text-2xl font-bold tracking-tight mb-4">Newest Videos</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {longVideos.map((video) => (
             <VideoCard key={video.id} video={video} />
           ))}
