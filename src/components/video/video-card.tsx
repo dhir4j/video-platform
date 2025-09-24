@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getUser } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Heart, MessageCircle, Share2, MoreVertical } from 'lucide-react';
+import { PlayCircle, Heart, MessageCircle, Share2, Maximize } from 'lucide-react';
 import { Button } from '../ui/button';
 
 interface VideoCardProps {
@@ -67,7 +67,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                           <Share2 className="h-7 w-7"/>
                       </Button>
                       <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
-                          <MoreVertical className="h-7 w-7"/>
+                          <Maximize className="h-7 w-7"/>
                       </Button>
                   </div>
                 )}
