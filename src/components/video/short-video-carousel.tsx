@@ -21,6 +21,7 @@ import { getUser } from "@/lib/data"
 import { CommentThread } from "../comments/comment-thread"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Flag } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -36,7 +37,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
       return
     }
 
-    const handleSelect = () => {
+    const handleSelect = (api: CarouselApi) => {
       const selectedVideoId = videos[api.selectedScrollSnap()].id;
       // Use replaceState to update URL without triggering a re-render/navigation
       window.history.replaceState(null, '', `/shorts/${selectedVideoId}`)
@@ -47,19 +48,19 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
     // Initial scroll to start index if provided
     if(startIndex > 0 && api.scrollSnapList().length > startIndex) {
         api.scrollTo(startIndex, true); // `true` for instant jump
-    } else {
-        // If no start index, make sure the URL is correct for the first video
-        const initialVideoId = videos[0]?.id;
-        if(initialVideoId) {
-            window.history.replaceState(null, '', `/shorts/${initialVideoId}`)
-        }
+    }
+    
+    // Set initial URL
+    const initialVideoId = videos[api.selectedScrollSnap()].id;
+    if(initialVideoId) {
+        window.history.replaceState(null, '', `/shorts/${initialVideoId}`)
     }
     
     return () => {
       api.off("select", handleSelect);
     }
 
-  }, [api, startIndex, videos]);
+  }, [api, startIndex, videos, router]);
 
   return (
     <Carousel 
@@ -69,6 +70,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
         opts={{
             align: "start",
             loop: true,
+            startIndex: startIndex,
         }}
     >
       <CarouselContent className="-mt-0 h-full">
@@ -83,11 +85,12 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
                             fill
                             className="object-contain h-full w-auto"
                             data-ai-hint="portrait model"
+                            priority
                         />
                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                     </div>
 
-                    <div className="absolute top-6 left-4 z-20 md:hidden">
+                    <div className={cn("absolute top-6 left-4 z-20", router.asPath === '/shorts' ? 'md:hidden' : '')}>
                         <Button variant="ghost" size="icon" className="rounded-full bg-black/50 hover:bg-black/70 text-white" onClick={() => router.back()}>
                             <ArrowLeft className="h-6 w-6" />
                         </Button>
