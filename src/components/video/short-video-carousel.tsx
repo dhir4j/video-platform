@@ -12,7 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Heart, MessageCircle, Share2, MoreVertical, ArrowLeft } from "lucide-react"
 
@@ -127,8 +127,10 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
                                         <span className="text-xs font-bold">{video.commentsCount.toLocaleString()}</span>
                                     </Button>
                                 </SheetTrigger>
-                                <SheetContent side="bottom" className="h-[80vh] flex flex-col">
-                                    <h2 className="text-xl font-bold p-4 border-b">Comments</h2>
+                                <SheetContent side="bottom" className="h-[80vh] flex flex-col p-0">
+                                    <SheetHeader className="p-4 border-b">
+                                        <SheetTitle>Comments</SheetTitle>
+                                    </SheetHeader>
                                     <div className="flex-1 overflow-y-auto p-4">
                                         <CommentThread videoId={video.id} />
                                     </div>
