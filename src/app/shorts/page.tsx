@@ -16,7 +16,7 @@ export default function AllShortsPage() {
 
     return (
       <div className="w-full flex justify-center">
-        <div className="w-full max-w-xs">
+        <div className="w-full max-w-[20.5rem]">
             <div className="grid grid-cols-1 gap-8 py-4">
                 {shortVideos.map((video) => (
                     <VideoCard key={video.id} video={video} orientation="vertical" />
