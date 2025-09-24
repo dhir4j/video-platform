@@ -15,8 +15,6 @@ export default function AllShortsPage() {
     }
 
     return (
-        <div className="h-full w-full">
-            <ShortVideoCarousel videos={shortVideos} />
-        </div>
+      <ShortVideoCarousel videos={shortVideos} />
     )
 }

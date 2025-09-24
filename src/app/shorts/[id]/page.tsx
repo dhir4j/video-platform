@@ -16,8 +16,6 @@ export default function ShortsPage({ params }: { params: { id: string } }) {
     // It's important to pass all short videos to the carousel
     // so it can handle swiping between them.
     return (
-        <div className="h-full w-full">
-            <ShortVideoCarousel videos={shortVideos} startIndex={startIndex} />
-        </div>
+      <ShortVideoCarousel videos={shortVideos} startIndex={startIndex} />
     )
 }

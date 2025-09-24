@@ -65,7 +65,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
   }, [api, startIndex, videos, router]);
 
   return (
-    <div className="h-full w-full relative">
+    <div className="h-screen w-full relative bg-black">
         <Carousel 
             setApi={setApi} 
             className="w-full h-full" 

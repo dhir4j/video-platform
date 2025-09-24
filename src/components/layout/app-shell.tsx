@@ -14,13 +14,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   
   return (
     <SidebarProvider>
-      <div className="relative flex h-screen w-screen overflow-hidden">
+      <div className="relative flex min-h-screen w-screen overflow-hidden">
         <AppSidebar />
         <div className="flex-1 flex flex-col h-screen overflow-hidden">
           <Header />
           <main className={cn(
             "flex-1",
-            isShortsPage ? "bg-black" : "overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
+            isShortsPage ? "bg-black overflow-hidden" : "overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
           )}>
             {children}
           </main>
