@@ -9,18 +9,15 @@ import { BottomNavbar } from "./bottom-navbar";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  // The new shorts layout handles its own structure, so the main AppShell should not render for those paths.
   const isShortsPage = pathname.startsWith('/shorts');
 
   if (isShortsPage) {
-    // The shorts-specific layout will handle the shell structure
-    return (
-        <>
-            {children}
-            <BottomNavbar />
-        </>
-    );
+    // Return children directly, the shorts layout will wrap them.
+    return <>{children}</>;
   }
 
+  // Default layout for all other pages
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen w-screen overflow-hidden">
