@@ -39,6 +39,18 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
                <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
             </div>
+            
+            <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+              <h3 className="font-semibold text-base leading-tight truncate text-white group-hover:text-primary transition-colors">{video.title}</h3>
+              <div className="flex items-center gap-2 mt-2">
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
+                  <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+                </Avatar>
+                <p className="text-sm text-white/80 truncate">{uploader?.name}</p>
+              </div>
+            </div>
+
             {video.type === 'short' && (
               <Badge variant="default" className="absolute top-2 left-2 bg-primary text-primary-foreground">Short</Badge>
             )}
@@ -46,21 +58,23 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                 1:23
             </div>
           </div>
-          <div className="p-3 space-y-2">
-            <h3 className="font-semibold text-base leading-tight truncate group-hover:text-primary transition-colors">{video.title}</h3>
-            <div className="flex items-center gap-2">
-              <Avatar className="h-6 w-6">
-                <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
-                <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
-              </Avatar>
-              <p className="text-sm text-muted-foreground truncate">{uploader?.name}</p>
+          {!isVertical && (
+            <div className="p-3 space-y-2">
+              <h3 className="font-semibold text-base leading-tight truncate group-hover:text-primary transition-colors">{video.title}</h3>
+              <div className="flex items-center gap-2">
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
+                  <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+                </Avatar>
+                <p className="text-sm text-muted-foreground truncate">{uploader?.name}</p>
+              </div>
+               <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
+                  <span>{video.likes.toLocaleString()} likes</span>
+                  <span>•</span>
+                  <span>{new Date(video.createdAt).toLocaleDateString()}</span>
+               </div>
             </div>
-             <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-                <span>{video.likes.toLocaleString()} likes</span>
-                <span>•</span>
-                <span>{new Date(video.createdAt).toLocaleDateString()}</span>
-             </div>
-          </div>
+          )}
         </CardContent>
       </Card>
     </Link>
