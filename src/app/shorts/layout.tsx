@@ -1,4 +1,3 @@
-
 import { BottomNavbar } from "@/components/layout/bottom-navbar";
 
 export default function ShortsLayout({

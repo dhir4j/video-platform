@@ -14,13 +14,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Heart, MessageCircle, Share2, MoreVertical, ArrowLeft } from "lucide-react"
+import { Heart, MessageCircle, Share2, MoreVertical, ArrowLeft, Flag } from "lucide-react"
 
 import type { Video } from "@/lib/types"
 import { getUser } from "@/lib/data"
 import { CommentThread } from "../comments/comment-thread"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import { Flag } from "lucide-react"
+
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -37,6 +37,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
     }
 
     const handleSelect = (api: CarouselApi) => {
+      if (videos.length === 0) return;
       const selectedVideoId = videos[api.selectedScrollSnap()].id;
       // Use replaceState to update URL without triggering a re-render/navigation
       window.history.replaceState(null, '', `/shorts/${selectedVideoId}`)
@@ -61,7 +62,15 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
       api.off("select", handleSelect);
     }
 
-  }, [api, startIndex, videos, router]);
+  }, [api, startIndex, videos]);
+
+  if (videos.length === 0) {
+    return (
+        <div className="h-full bg-black flex items-center justify-center text-white">
+            <p>No shorts available.</p>
+        </div>
+    )
+  }
 
   return (
     <Carousel 
