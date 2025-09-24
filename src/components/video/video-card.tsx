@@ -1,4 +1,6 @@
+'use client';
 
+import { useState, useRef, useEffect, MouseEvent } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Video } from '@/lib/types';
@@ -7,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getUser } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Heart, MessageCircle, Share2, Maximize } from 'lucide-react';
+import { PlayCircle, Heart, MessageCircle, Share2, Maximize, Minimize } from 'lucide-react';
 import { Button } from '../ui/button';
 
 interface VideoCardProps {
@@ -18,12 +20,46 @@ interface VideoCardProps {
 export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps) {
   const uploader = getUser(video.uploaderId);
   const linkHref = video.type === 'short' ? `/shorts/${video.id}` : `/watch/${video.id}`;
-
   const isVertical = orientation === 'vertical';
+
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const handleFullscreen = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!cardRef.current) return;
+
+    if (!document.fullscreenElement) {
+      cardRef.current.requestFullscreen().catch((err) => {
+        console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', onFullscreenChange);
+
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
+  }, []);
 
   return (
     <Link href={linkHref} className="group">
-      <Card className={cn("overflow-hidden h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:border-primary/50", isVertical ? "flex flex-col" : "")}>
+      <Card
+        ref={cardRef}
+        className={cn(
+          "overflow-hidden h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:border-primary/50",
+          isVertical ? "flex flex-col" : "",
+          "bg-card" // Ensure background color for fullscreen
+        )}
+      >
         <CardContent className="p-0">
           <div className="relative">
             <Image
@@ -33,7 +69,8 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
               height={isVertical ? 640 : 360}
               className={cn(
                 "object-cover w-full transition-transform duration-300 group-hover:scale-105", 
-                isVertical ? "aspect-[9/16]" : "aspect-video"
+                isVertical ? "aspect-[9/16]" : "aspect-video",
+                isFullscreen ? "object-contain h-screen" : ""
               )}
               data-ai-hint={video.type === 'short' ? 'portrait model' : 'abstract neon'}
             />
@@ -66,8 +103,8 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                       <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
                           <Share2 className="h-7 w-7"/>
                       </Button>
-                      <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
-                          <Maximize className="h-7 w-7"/>
+                      <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10" onClick={handleFullscreen}>
+                          {isFullscreen ? <Minimize className="h-7 w-7"/> : <Maximize className="h-7 w-7"/>}
                       </Button>
                   </div>
                 )}
