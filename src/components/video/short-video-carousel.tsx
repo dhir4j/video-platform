@@ -14,13 +14,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Heart, MessageCircle, Share2, MoreVertical, X, Flag, ArrowLeft } from "lucide-react"
+import { Heart, MessageCircle, Share2, MoreVertical, ArrowLeft } from "lucide-react"
 
 import type { Video } from "@/lib/types"
 import { getUser } from "@/lib/data"
 import { CommentThread } from "../comments/comment-thread"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+import { Flag } from "lucide-react"
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -36,18 +36,30 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
       return
     }
 
-    // When the carousel is selected, update the URL
-    api.on("select", () => {
+    const handleSelect = () => {
       const selectedVideoId = videos[api.selectedScrollSnap()].id;
+      // Use replaceState to update URL without triggering a re-render/navigation
       window.history.replaceState(null, '', `/shorts/${selectedVideoId}`)
-    })
+    };
+    
+    api.on("select", handleSelect);
 
-    // Initial scroll to start index
-    if(api.scrollSnapList().length > startIndex) {
-        api.scrollTo(startIndex, true);
+    // Initial scroll to start index if provided
+    if(startIndex > 0 && api.scrollSnapList().length > startIndex) {
+        api.scrollTo(startIndex, true); // `true` for instant jump
+    } else {
+        // If no start index, make sure the URL is correct for the first video
+        const initialVideoId = videos[0]?.id;
+        if(initialVideoId) {
+            window.history.replaceState(null, '', `/shorts/${initialVideoId}`)
+        }
+    }
+    
+    return () => {
+      api.off("select", handleSelect);
     }
 
-  }, [api, startIndex, videos])
+  }, [api, startIndex, videos]);
 
   return (
     <Carousel 
