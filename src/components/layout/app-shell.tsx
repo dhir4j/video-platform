@@ -12,16 +12,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isShortsPage = pathname.startsWith('/shorts');
 
+  if (isShortsPage) {
+    return (
+      <>
+        {children}
+        <BottomNavbar />
+      </>
+    );
+  }
+
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen w-screen overflow-hidden">
         <AppSidebar />
         <div className="flex-1 flex flex-col h-screen overflow-hidden">
-          {!isShortsPage && <Header />}
-          <main className={cn(
-            "flex-1 overflow-y-auto",
-            !isShortsPage && "p-4 lg:p-6 pb-20 md:pb-6"
-          )}>
+          <Header />
+          <main className="flex-1 overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6">
             {children}
           </main>
           <BottomNavbar />
