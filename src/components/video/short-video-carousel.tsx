@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import type { Video } from "@/lib/types"
 
 import {
@@ -23,7 +22,6 @@ interface ShortVideoCarouselProps {
 
 export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouselProps) {
   const [api, setApi] = React.useState<CarouselApi>()
-  const router = useRouter();
 
   React.useEffect(() => {
     if (!api) return;
@@ -31,21 +29,21 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
     const handleSelect = (api: CarouselApi) => {
       if (videos.length === 0) return;
       const selectedVideoId = videos[api.selectedScrollSnap()].id;
-      // Use replaceState to avoid cluttering browser history on scroll
-      window.history.replaceState(null, '', `/shorts/${selectedVideoId}`)
+      // Use replaceState to update URL without a full page navigation, preventing re-renders.
+      window.history.replaceState(null, '', `/shorts/${selectedVideoId}`);
     };
     
     api.on("select", handleSelect);
 
+    // Set the initial state correctly
     if(startIndex > 0 && api.scrollSnapList().length > startIndex) {
         api.scrollTo(startIndex, true); // true for instant scroll
     }
     
-    // Set initial URL
     if (videos.length > 0) {
       const initialVideoId = videos[api.selectedScrollSnap()].id;
       if(initialVideoId) {
-          window.history.replaceState(null, '', `/shorts/${initialVideoId}`)
+          window.history.replaceState(null, '', `/shorts/${initialVideoId}`);
       }
     }
     
@@ -53,7 +51,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
       api.off("select", handleSelect);
     }
 
-  }, [api, startIndex, videos, router]);
+  }, [api, startIndex, videos]);
 
   if (videos.length === 0) {
     return (
@@ -66,7 +64,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
   return (
     <Carousel 
         setApi={setApi} 
-        className="relative w-full h-screen"
+        className="relative w-full h-full bg-black"
         orientation="vertical"
         opts={{
             align: "start",
@@ -75,7 +73,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
         }}
     >
       <CarouselContent className="h-full -mt-0">
-          {videos.map((video, index) => (
+          {videos.map((video) => (
             <CarouselItem key={video.id} className="pt-0 relative h-full">
               <div className="w-full h-full bg-black flex items-center justify-center">
                  <Card className="w-full h-full sm:w-auto sm:max-w-md aspect-[9/16] bg-black flex items-center justify-center rounded-none sm:rounded-2xl border-none text-white overflow-hidden">
