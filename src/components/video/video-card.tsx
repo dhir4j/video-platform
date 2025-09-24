@@ -54,7 +54,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                   </div>
                 </div>
                 {video.type === 'short' && (
-                  <div className="absolute bottom-4 right-2 text-white z-10 flex flex-col items-center gap-3">
+                  <div className="absolute bottom-24 right-2 text-white z-10 flex flex-col items-center gap-3">
                       <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10">
                           <Heart className="h-7 w-7"/>
                           <span className="text-xs font-bold">{video.likes > 1000 ? `${(video.likes/1000).toFixed(1)}k` : video.likes}</span>
