@@ -6,7 +6,7 @@ export default function AllShortsPage() {
     const shortVideos = allVideos.filter(v => v.type === 'short');
     
     return (
-        <div className="fixed inset-0 bg-black z-50">
+        <div className="h-full bg-black">
             <ShortVideoCarousel videos={shortVideos} startIndex={0} />
         </div>
     )

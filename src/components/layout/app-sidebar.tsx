@@ -24,7 +24,7 @@ export function AppSidebar() {
   const user = getUser("user_1");
 
   const menuItems = [
-    { href: "/", icon: <Home />, label: "Home", tooltip: "Home" },
+    { href: "/", icon: <Home />, label: "Video", tooltip: "Video" },
     { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
     { href: "/upload", icon: <Upload />, label: "Upload", tooltip: "Upload" },
     { href: "/profile", icon: <User />, label: "Profile", tooltip: "Profile" },

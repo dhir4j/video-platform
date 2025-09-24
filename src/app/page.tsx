@@ -17,10 +17,13 @@ export default function HomePage() {
     <div className="space-y-8">
       <section>
         <h2 className="text-2xl font-bold tracking-tight mb-4">Trending Shorts</h2>
-        <Carousel opts={{ align: 'start', loop: true }}>
+        <Carousel 
+          opts={{ align: 'start', loop: true }}
+          className="w-full"
+        >
           <CarouselContent>
             {shortVideos.map((video) => (
-              <CarouselItem key={video.id} className="basis-11/12 md:basis-1/3 lg:basis-1/5">
+              <CarouselItem key={video.id} className="basis-3/4 sm:basis-1/2 md:basis-1/3 lg:basis-1/5">
                 <VideoCard video={video} orientation="vertical" />
               </CarouselItem>
             ))}

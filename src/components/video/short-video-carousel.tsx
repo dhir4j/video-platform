@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Heart, MessageCircle, Share2, MoreVertical, X, Flag } from "lucide-react"
+import { Heart, MessageCircle, Share2, MoreVertical, X, Flag, ArrowLeft } from "lucide-react"
 
 import type { Video } from "@/lib/types"
 import { getUser } from "@/lib/data"
@@ -43,26 +43,25 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
         {videos.map((video) => {
             const uploader = getUser(video.uploaderId)
             return (
-                <CarouselItem key={video.id} className="pt-0 relative">
+                <CarouselItem key={video.id} className="pt-0 relative h-full">
                     <div className="w-full h-full bg-black flex items-center justify-center">
                         <Image
                             src={video.thumbnailUrl}
                             alt={video.title}
-                            width={360}
-                            height={640}
+                            fill
                             className="object-contain h-full w-auto"
                             data-ai-hint="portrait model"
                         />
                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                     </div>
 
-                    <div className="absolute top-6 left-6 z-20">
+                    <div className="absolute top-6 left-4 z-20 md:hidden">
                         <Button variant="ghost" size="icon" className="rounded-full bg-black/50 hover:bg-black/70 text-white" onClick={() => router.back()}>
-                            <X className="h-6 w-6" />
+                            <ArrowLeft className="h-6 w-6" />
                         </Button>
                     </div>
 
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10 space-y-3">
+                    <div className="absolute bottom-20 left-4 right-4 text-white z-10 space-y-3">
                         <div className="flex items-center gap-3">
                             <Avatar>
                                 <AvatarImage src={uploader?.avatarUrl} />

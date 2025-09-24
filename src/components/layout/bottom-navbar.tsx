@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/shorts", icon: PlaySquare, label: "Shorts" },
-  { href: "/", icon: Home, label: "Home" },
+  { href: "/", icon: Home, label: "Video" },
   { href: "/upload", icon: Upload, label: "Upload" },
   { href: "/profile", icon: User, label: "Profile" },
 ];

@@ -13,7 +13,7 @@ export default function ShortsPage({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="fixed inset-0 bg-black z-50">
+        <div className="h-full bg-black">
             <ShortVideoCarousel videos={shortVideos} startIndex={startIndex} />
         </div>
     )
