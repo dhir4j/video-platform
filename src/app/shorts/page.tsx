@@ -15,11 +15,13 @@ export default function AllShortsPage() {
     }
 
     return (
-      <div className="max-w-md mx-auto">
-        <div className="grid grid-cols-1 gap-4">
-            {shortVideos.map((video) => (
-                <VideoCard key={video.id} video={video} orientation="vertical" />
-            ))}
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-sm">
+            <div className="grid grid-cols-1 gap-8 py-4">
+                {shortVideos.map((video) => (
+                    <VideoCard key={video.id} video={video} orientation="vertical" />
+                ))}
+            </div>
         </div>
       </div>
     )
