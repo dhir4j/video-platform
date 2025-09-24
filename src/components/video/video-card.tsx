@@ -7,7 +7,8 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getUser } from '@/lib/data';
 import { Badge } from '../ui/badge';
 import { cn } from '@/lib/utils';
-import { PlayCircle } from 'lucide-react';
+import { PlayCircle, Heart, MessageCircle, Share2, MoreVertical } from 'lucide-react';
+import { Button } from '../ui/button';
 
 interface VideoCardProps {
   video: Video;
@@ -41,16 +42,36 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
             </div>
             
             {isVertical && (
-              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
-                <h3 className="font-semibold text-base leading-tight truncate text-white group-hover:text-primary transition-colors">{video.title}</h3>
-                <div className="flex items-center gap-2 mt-2">
-                  <Avatar className="h-6 w-6">
-                    <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
-                    <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
-                  </Avatar>
-                  <p className="text-sm text-white/80 truncate">{uploader?.name}</p>
+              <>
+                <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent">
+                  <h3 className="font-semibold text-base leading-tight truncate text-white group-hover:text-primary transition-colors">{video.title}</h3>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
+                      <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+                    </Avatar>
+                    <p className="text-sm text-white/80 truncate">{uploader?.name}</p>
+                  </div>
                 </div>
-              </div>
+                {video.type === 'short' && (
+                  <div className="absolute bottom-4 right-2 text-white z-10 flex flex-col items-center gap-3">
+                      <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10">
+                          <Heart className="h-7 w-7"/>
+                          <span className="text-xs font-bold">{video.likes > 1000 ? `${(video.likes/1000).toFixed(1)}k` : video.likes}</span>
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10">
+                          <MessageCircle className="h-7 w-7"/>
+                          <span className="text-xs font-bold">{video.commentsCount}</span>
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
+                          <Share2 className="h-7 w-7"/>
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
+                          <MoreVertical className="h-7 w-7"/>
+                      </Button>
+                  </div>
+                )}
+              </>
             )}
 
             {video.type === 'short' && (
