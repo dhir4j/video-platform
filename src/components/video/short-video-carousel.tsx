@@ -3,6 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import type { Video } from "@/lib/types"
+import Image from "next/image";
 
 import {
   Carousel,
@@ -10,6 +11,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel"
+import { Card, CardContent } from "@/components/ui/card";
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -46,7 +48,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
       api.off("select", handleSelect);
     }
 
-  }, [api, startIndex, videos]);
+  }, [api, startIndex, videos, router]);
 
   if (videos.length === 0) {
     return (
@@ -68,14 +70,24 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
         }}
     >
       <CarouselContent className="-mt-0 h-full">
-          {videos.map((video, index) => (
+          {videos.map((video) => (
             <CarouselItem key={video.id} className="pt-0 relative h-full">
-              <div className="w-full h-full bg-black flex items-center justify-center">
-                {/* Dummy Content */}
-                <div className="w-full h-full flex items-center justify-center bg-gray-900">
-                  <h1 className="text-white text-2xl">Video {index + 1}</h1>
-                </div>
-              </div>
+               <Card className="w-full h-full bg-black flex items-center justify-center rounded-none border-none">
+                <CardContent className="relative w-full h-full p-0">
+                  <Image
+                    src={video.thumbnailUrl}
+                    alt={video.title}
+                    fill
+                    className="object-cover"
+                    data-ai-hint="portrait model"
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <div className="absolute bottom-20 left-4 text-white">
+                    <h3 className="font-bold text-lg">{video.title}</h3>
+                    <p>{video.uploaderId}</p>
+                  </div>
+                </CardContent>
+              </Card>
             </CarouselItem>
           ))}
       </CarouselContent>
