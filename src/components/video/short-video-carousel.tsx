@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import type { Video } from "@/lib/types"
 
@@ -65,7 +66,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
   return (
     <Carousel 
         setApi={setApi} 
-        className="relative w-full h-full"
+        className="relative w-full h-screen"
         orientation="vertical"
         opts={{
             align: "start",
@@ -77,21 +78,30 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
           {videos.map((video, index) => (
             <CarouselItem key={video.id} className="pt-0 relative h-full">
               <div className="w-full h-full bg-black flex items-center justify-center">
-                <Card className="w-[calc(100%-20px)] sm:w-auto sm:max-w-md aspect-[9/16] bg-slate-900 flex items-center justify-center rounded-2xl border-none text-white">
-                    <CardContent className="flex flex-col items-center justify-center p-6">
-                         <h1 className="text-8xl font-bold">{index + 1}</h1>
-                         <p className="mt-4 text-center">{video.title}</p>
+                 <Card className="w-full h-full sm:w-auto sm:max-w-md aspect-[9/16] bg-black flex items-center justify-center rounded-none sm:rounded-2xl border-none text-white overflow-hidden">
+                    <CardContent className="relative w-full h-full flex flex-col items-center justify-center p-0">
+                       <Image
+                          src={video.thumbnailUrl}
+                          alt={video.title}
+                          fill
+                          className="object-contain"
+                          data-ai-hint="portrait model"
+                        />
+                       <div className="absolute bottom-4 left-4 text-white z-10 bg-black/50 p-2 rounded-md">
+                          <h3 className="font-bold">{video.title}</h3>
+                          <p className="text-sm text-gray-300">{video.uploaderId}</p>
+                       </div>
                     </CardContent>
                 </Card>
               </div>
             </CarouselItem>
           ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-1/2 -translate-x-1/2 top-4 hidden md:flex">
+      <CarouselPrevious className="absolute left-1/2 -translate-x-1/2 top-4 hidden md:flex z-10">
           <ChevronUp className="h-6 w-6"/>
           <span className="sr-only">Previous video</span>
       </CarouselPrevious>
-       <CarouselNext className="absolute left-1/2 -translate-x-1/2 bottom-4 hidden md:flex">
+       <CarouselNext className="absolute left-1/2 -translate-x-1/2 bottom-16 md:bottom-4 hidden md:flex z-10">
           <ChevronDown className="h-6 w-6"/>
           <span className="sr-only">Next video</span>
       </CarouselNext>
