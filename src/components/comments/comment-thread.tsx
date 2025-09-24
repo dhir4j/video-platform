@@ -1,3 +1,5 @@
+"use client";
+
 import { getComments } from '@/lib/data';
 import { CommentItem } from './comment-item';
 import { Textarea } from '../ui/textarea';
