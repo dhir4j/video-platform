@@ -16,11 +16,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <div className={cn("relative md:flex h-screen w-screen overflow-hidden")}>
         <AppSidebar />
-        <div className="flex-1 flex flex-col h-screen">
+        <div className="flex-1 flex flex-col h-screen overflow-hidden">
           <Header />
           <main className={cn(
             "flex-1 overflow-y-auto",
-            isShortsPage ? "p-0 pb-16 md:pb-0" : "p-4 lg:p-6 pb-20 md:pb-6"
+            isShortsPage ? "pb-16 md:pb-0" : "p-4 lg:p-6 pb-20 md:pb-6"
           )}>
             <div className={cn(isShortsPage && "h-full")}>
               {children}

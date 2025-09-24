@@ -51,9 +51,11 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
     }
     
     // Set initial URL
-    const initialVideoId = videos[api.selectedScrollSnap()].id;
-    if(initialVideoId) {
-        window.history.replaceState(null, '', `/shorts/${initialVideoId}`)
+    if (videos.length > 0) {
+      const initialVideoId = videos[api.selectedScrollSnap()].id;
+      if(initialVideoId) {
+          window.history.replaceState(null, '', `/shorts/${initialVideoId}`)
+      }
     }
     
     return () => {
