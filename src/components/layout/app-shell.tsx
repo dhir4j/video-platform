@@ -12,6 +12,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isShortsPage = pathname.startsWith('/shorts');
   
+  if (isShortsPage) {
+    return (
+      <>
+        {children}
+        <BottomNavbar />
+      </>
+    )
+  }
+
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen w-screen overflow-hidden">
@@ -19,8 +28,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="flex-1 flex flex-col h-screen overflow-hidden">
           <Header />
           <main className={cn(
-            "flex-1",
-            isShortsPage ? "bg-black" : "overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
+            "flex-1 overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
           )}>
             {children}
           </main>
