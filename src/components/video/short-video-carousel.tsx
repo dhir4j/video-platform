@@ -21,7 +21,6 @@ import { getUser } from "@/lib/data"
 import { CommentThread } from "../comments/comment-thread"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Flag } from "lucide-react"
-import { cn } from "@/lib/utils"
 
 interface ShortVideoCarouselProps {
     videos: Video[];
@@ -67,7 +66,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
   return (
     <Carousel 
         setApi={setApi} 
-        className="w-full h-full bg-black" 
+        className="w-full h-full" 
         orientation="vertical"
         opts={{
             align: "start",
@@ -76,22 +75,23 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
         }}
     >
     <CarouselContent className="-mt-0 h-full">
-        {videos.map((video, index) => {
+        {videos.map((video) => {
             const uploader = getUser(video.uploaderId)
             return (
                 <CarouselItem key={video.id} className="pt-0 relative h-full">
-                    <div className="w-full h-full bg-black flex items-center justify-center">
+                    <div className="w-full h-full relative">
                         <Image
                             src={video.thumbnailUrl}
                             alt={video.title}
                             fill
                             className="object-contain"
                             data-ai-hint="portrait model"
+                            unoptimized
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
                     </div>
 
-                    <div className={cn("absolute top-6 left-4 z-20", router.asPath === '/shorts' ? 'md:hidden' : '')}>
+                    <div className="absolute top-6 left-4 z-20 md:hidden">
                         <Button variant="ghost" size="icon" className="rounded-full bg-black/50 hover:bg-black/70 text-white" onClick={() => router.back()}>
                             <ArrowLeft className="h-6 w-6" />
                         </Button>
@@ -127,7 +127,7 @@ export function ShortVideoCarousel({ videos, startIndex = 0 }: ShortVideoCarouse
                             </SheetTrigger>
                             <SheetContent side="bottom" className="h-[80vh] flex flex-col p-0">
                                 <SheetHeader className="p-4 border-b">
-                                    <SheetTitle>Comments ({video.commentsCount.toLocaleString()})</SheetTitle>
+                                     <SheetTitle>Comments ({video.commentsCount.toLocaleString()})</SheetTitle>
                                 </SheetHeader>
                                 <div className="flex-1 overflow-y-auto p-4">
                                     <CommentThread videoId={video.id} />
