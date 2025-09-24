@@ -19,12 +19,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="flex-1 flex flex-col h-screen overflow-hidden">
           <Header />
           <main className={cn(
-            "flex-1 overflow-y-auto",
-            isShortsPage ? "pb-16 md:pb-0" : "p-4 lg:p-6 pb-20 md:pb-6"
+            "flex-1",
+            isShortsPage ? "overflow-hidden" : "overflow-y-auto p-4 lg:p-6 pb-20 md:pb-6"
           )}>
-            <div className={cn(isShortsPage && "h-full")}>
-              {children}
-            </div>
+            {children}
           </main>
           <BottomNavbar />
         </div>
