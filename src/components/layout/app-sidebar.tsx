@@ -14,7 +14,7 @@ import {
   SidebarSeparator
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Home, Flame, Upload, User, Settings, LogOut, Clapperboard } from "lucide-react";
+import { Flame, Upload, User, Settings, Clapperboard } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { getUser } from "@/lib/data";
 
@@ -24,7 +24,7 @@ export function AppSidebar() {
   const user = getUser("user_1");
 
   const menuItems = [
-    { href: "/", icon: <Home />, label: "Video", tooltip: "Video" },
+    { href: "/", icon: <Clapperboard />, label: "Video", tooltip: "Video" },
     { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
     { href: "/upload", icon: <Upload />, label: "Upload", tooltip: "Upload" },
     { href: "/profile", icon: <User />, label: "Profile", tooltip: "Profile" },
