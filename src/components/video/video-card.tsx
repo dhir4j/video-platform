@@ -10,7 +10,7 @@ import { getUser } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { PlayCircle, Heart, MessageCircle, Share2, Maximize, Minimize } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '../ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet';
 import { CommentThread } from '../comments/comment-thread';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ScrollArea } from '../ui/scroll-area';
@@ -27,6 +27,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
 
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const isMobile = useIsMobile();
 
   const handleFullscreen = (e: MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +45,12 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
     }
   };
 
+  const handleCommentClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowComments(true);
+  };
+  
   useEffect(() => {
     const onFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -61,11 +68,11 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
         className={cn(
           "overflow-hidden h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:border-primary/50",
           isVertical ? "flex flex-col" : "",
-          "bg-card" // Ensure background color for fullscreen
+          "bg-card"
         )}
       >
         <CardContent className="p-0">
-          <Sheet>
+          <Sheet open={showComments} onOpenChange={setShowComments}>
             <div className="relative">
               <Image
                 src={video.thumbnailUrl}
@@ -101,14 +108,10 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                             <Heart className="h-7 w-7"/>
                             <span className="text-xs font-bold">{video.likes > 1000 ? `${(video.likes/1000).toFixed(1)}k` : video.likes}</span>
                         </Button>
-
-                        <SheetTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10" onClick={(e) => e.preventDefault()}>
+                        <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10" onClick={handleCommentClick}>
                               <MessageCircle className="h-7 w-7"/>
                               <span className="text-xs font-bold">{video.commentsCount}</span>
-                          </Button>
-                        </SheetTrigger>
-                        
+                        </Button>
                         <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
                             <Share2 className="h-7 w-7"/>
                         </Button>
