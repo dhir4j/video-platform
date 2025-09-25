@@ -75,12 +75,15 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
   const CommentButton = ({isDrawer = false}: {isDrawer?: boolean}) => {
     const Trigger = isDrawer ? DrawerTrigger : SheetTrigger;
     return (
+      // The onClick handler is wrapped to prevent navigation while allowing the trigger to work.
+      <div onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
         <Trigger asChild>
-            <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+            <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10">
                 <MessageCircle className="h-7 w-7"/>
                 <span className="text-xs font-bold">{video.commentsCount}</span>
             </Button>
         </Trigger>
+      </div>
     )
   }
   
@@ -126,7 +129,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                   </div>
                   {video.type === 'short' && (
                      <div className="absolute bottom-24 right-2 text-white z-10 flex flex-col items-center gap-3">
-                        <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10">
+                        <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                             <Heart className="h-7 w-7"/>
                             <span className="text-xs font-bold">{video.likes > 1000 ? `${(video.likes/1000).toFixed(1)}k` : video.likes}</span>
                         </Button>
@@ -147,7 +150,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                             </Sheet>
                         )}
                         
-                        <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
+                        <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                             <Share2 className="h-7 w-7"/>
                         </Button>
                         <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10" onClick={handleFullscreen}>
