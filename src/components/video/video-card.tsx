@@ -132,9 +132,17 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                 1:23
             </div>
             
-            <SheetContent side={isMobile ? "bottom" : "right"} className="p-0 flex flex-col h-full sm:max-w-md">
+            <SheetContent 
+              side={isMobile ? "bottom" : "right"} 
+              className={cn(
+                "p-0 flex flex-col",
+                isMobile 
+                  ? "h-[80%] bg-background/80 backdrop-blur-sm"
+                  : "sm:max-w-md"
+              )}
+            >
                 <SheetHeader className="p-4 border-b">
-                    <SheetTitle>Comments</SheetTitle>
+                    <SheetTitle>Comments ({video.commentsCount})</SheetTitle>
                 </SheetHeader>
                 <ScrollArea className="flex-1">
                     <div className="p-4">
