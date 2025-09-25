@@ -10,10 +10,11 @@ import { getUser } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { PlayCircle, Heart, MessageCircle, Share2, Maximize, Minimize } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { CommentThread } from '../comments/comment-thread';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ScrollArea } from '../ui/scroll-area';
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
 
 interface VideoCardProps {
   video: Video;
@@ -27,7 +28,6 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
 
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showComments, setShowComments] = useState(false);
   const isMobile = useIsMobile();
 
   const handleFullscreen = (e: MouseEvent<HTMLButtonElement>) => {
@@ -44,12 +44,6 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
       document.exitFullscreen();
     }
   };
-
-  const handleCommentClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setShowComments(true);
-  };
   
   useEffect(() => {
     const onFullscreenChange = () => {
@@ -60,6 +54,35 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
 
     return () => document.removeEventListener('fullscreenchange', onFullscreenChange);
   }, []);
+
+  const CommentSection = ({ isDrawer = false }: { isDrawer?: boolean }) => {
+    const Header = isDrawer ? DrawerHeader : SheetHeader;
+    const Title = isDrawer ? DrawerTitle : SheetTitle;
+    return (
+      <>
+        <Header className="p-4 border-b">
+          <Title>Comments ({video.commentsCount})</Title>
+        </Header>
+        <ScrollArea className="flex-1">
+          <div className="p-4">
+            <CommentThread videoId={video.id} />
+          </div>
+        </ScrollArea>
+      </>
+    );
+  }
+
+  const CommentButton = ({isDrawer = false}: {isDrawer?: boolean}) => {
+    const Trigger = isDrawer ? DrawerTrigger : SheetTrigger;
+    return (
+        <Trigger asChild>
+            <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                <MessageCircle className="h-7 w-7"/>
+                <span className="text-xs font-bold">{video.commentsCount}</span>
+            </Button>
+        </Trigger>
+    )
+  }
   
   return (
     <Link href={linkHref} className="group">
@@ -72,7 +95,6 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
         )}
       >
         <CardContent className="p-0">
-          <Sheet open={showComments} onOpenChange={setShowComments}>
             <div className="relative">
               <Image
                 src={video.thumbnailUrl}
@@ -103,15 +125,28 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                     </div>
                   </div>
                   {video.type === 'short' && (
-                    <div className="absolute bottom-24 right-2 text-white z-10 flex flex-col items-center gap-3">
+                     <div className="absolute bottom-24 right-2 text-white z-10 flex flex-col items-center gap-3">
                         <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10">
                             <Heart className="h-7 w-7"/>
                             <span className="text-xs font-bold">{video.likes > 1000 ? `${(video.likes/1000).toFixed(1)}k` : video.likes}</span>
                         </Button>
-                        <Button variant="ghost" size="icon" className="h-12 w-12 flex-col gap-1 text-white hover:bg-white/10" onClick={handleCommentClick}>
-                              <MessageCircle className="h-7 w-7"/>
-                              <span className="text-xs font-bold">{video.commentsCount}</span>
-                        </Button>
+
+                        {isMobile ? (
+                            <Drawer>
+                                <CommentButton isDrawer />
+                                <DrawerContent className="p-0 flex flex-col h-[90%] rounded-t-lg bg-background/80 backdrop-blur-sm">
+                                    <CommentSection isDrawer/>
+                                </DrawerContent>
+                            </Drawer>
+                        ) : (
+                            <Sheet>
+                                <CommentButton />
+                                <SheetContent side="right" className="p-0 flex flex-col sm:max-w-md">
+                                    <CommentSection />
+                                </SheetContent>
+                            </Sheet>
+                        )}
+                        
                         <Button variant="ghost" size="icon" className="h-12 w-12 text-white hover:bg-white/10">
                             <Share2 className="h-7 w-7"/>
                         </Button>
@@ -127,26 +162,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                   1:23
               </div>
             </div>
-            
-            <SheetContent 
-              side={isMobile ? "bottom" : "right"} 
-              className={cn(
-                "p-0 flex flex-col",
-                isMobile 
-                  ? "h-[80%] rounded-t-lg bg-background/80 backdrop-blur-sm"
-                  : "sm:max-w-md"
-              )}
-            >
-                <SheetHeader className="p-4 border-b">
-                    <SheetTitle>Comments ({video.commentsCount})</SheetTitle>
-                </SheetHeader>
-                <ScrollArea className="flex-1">
-                    <div className="p-4">
-                        <CommentThread videoId={video.id} />
-                    </div>
-                </ScrollArea>
-            </SheetContent>
-          </Sheet>
+
           {!isVertical && (
             <div className="p-3 space-y-2">
               <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors">{video.title}</h3>
