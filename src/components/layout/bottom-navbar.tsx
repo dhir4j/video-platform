@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Compass, Flame, Clapperboard, User, ListFilter, Gem } from "lucide-react";
+import { Home, Flame, ListFilter, User, Gem } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", icon: Home, label: "Home" },
-  { href: "/explore", icon: Compass, label: "Explore" },
   { href: "/shorts", icon: Flame, label: "Shorts" },
+  { href: "/categories", icon: ListFilter, label: "Categories" },
   { href: "/subscribe", icon: Gem, label: "Premium" },
   { href: "/profile", icon: User, label: "Profile" },
 ];
