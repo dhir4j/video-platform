@@ -52,7 +52,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader>
+      <SidebarHeader className="mb-2">
         <Link href="/" className="flex items-center gap-2">
             <Clapperboard className="w-8 h-8 text-primary" />
             <span className="font-bold text-lg text-foreground group-data-[collapsible=icon]:hidden">VibeVerse</span>
