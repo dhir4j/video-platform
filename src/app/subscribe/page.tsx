@@ -61,7 +61,7 @@ export default function SubscribePage() {
                 Most Popular
               </div>
             )}
-            <CardHeader>
+            <CardHeader className="pt-6">
               <CardTitle className="text-2xl font-bold">{tier.name}</CardTitle>
               <CardDescription>{tier.description}</CardDescription>
             </CardHeader>
@@ -72,8 +72,8 @@ export default function SubscribePage() {
               </div>
               <ul className="space-y-3">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <li key={feature} className="flex items-start">
+                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0 mt-1" />
                     <span>{feature}</span>
                   </li>
                 ))}
