@@ -10,7 +10,7 @@ const users: User[] = Array.from({ length: 10 }, (_, i) => ({
 }));
 
 const countries = ['USA', 'Japan', 'Brazil', 'UK', 'India', 'Germany', 'France', 'Canada', 'Australia', 'Russia'];
-const tags = ['Lifestyle', 'Gaming', 'Music', 'Dance', 'Comedy', 'Education', 'Travel', 'Tech', 'Fashion', 'Art'];
+const tags = ['Lifestyle', 'Gaming', 'Music', 'Dance', 'Comedy', 'Education', 'Travel', 'Tech', 'Fashion', 'Art', 'Food', 'Fitness', 'DIY', 'Vlog', 'Animation', 'Sports', 'Science', 'Nature', 'Movies', 'ASMR'];
 const descriptions = [
   'Exploring the vibrant nightlife and neon-lit streets.',
   'A deep dive into the latest trends and styles.',
