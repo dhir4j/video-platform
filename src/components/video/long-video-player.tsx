@@ -6,14 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import {
   Play,
-  Pause,
   Maximize,
   Volume2,
   Share2,
   ThumbsUp,
   ThumbsDown,
   Flag,
-  MoreVertical
+  MoreVertical,
+  Rss
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -21,6 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import { formatDistanceToNow } from 'date-fns';
 
 interface LongVideoPlayerProps {
   video: Video;
@@ -56,18 +57,12 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
         </div>
       </div>
       
-      <h1 className="text-3xl font-bold tracking-tight">{video.title}</h1>
-      
+      <h1 className="text-2xl font-bold tracking-tight">{video.title}</h1>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-12 w-12">
-            <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
-            <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="font-semibold text-lg">{uploader?.name}</p>
-            <p className="text-sm text-muted-foreground">{video.uploaderId}</p>
-          </div>
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <span>{video.likes.toLocaleString()} views</span>
+          <span>•</span>
+          <span>{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}</span>
         </div>
         <div className="flex items-center gap-2">
             <Button variant="outline">
@@ -95,12 +90,30 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
         </div>
       </div>
       
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-y">
+         <div className="flex items-center gap-3">
+          <Avatar className="h-12 w-12">
+            <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
+            <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="font-semibold">{uploader?.name}</p>
+            <p className="text-sm text-muted-foreground">1.2M Subscribers</p>
+          </div>
+        </div>
+        <Button>
+          <Rss className="mr-2 h-4 w-4" />
+          Subscribe
+        </Button>
+      </div>
+      
       <div className="p-4 rounded-lg bg-secondary/50">
-        <p className="text-sm text-muted-foreground">{new Date(video.createdAt).toDateString()} • {video.country}</p>
-        <p className="mt-2">{video.description}</p>
+        <p className="font-semibold">Description</p>
+        <p className="mt-2 text-sm text-muted-foreground">{video.description}</p>
         <div className="flex flex-wrap gap-2 mt-4">
+          <h3 className="font-semibold w-full">Tags</h3>
           {video.tags.map(tag => (
-            <Badge key={tag} variant="secondary">#{tag}</Badge>
+            <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary/20">{tag}</Badge>
           ))}
         </div>
       </div>
