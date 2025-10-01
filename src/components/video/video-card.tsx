@@ -96,8 +96,9 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
       <Card
         ref={cardRef}
         className={cn(
-          "overflow-hidden h-full transition-shadow duration-300 bg-card rounded-xl",
-          "flex flex-col p-3"
+          "overflow-hidden h-full transition-all duration-300 bg-card rounded-xl",
+          "flex flex-col p-3",
+          "border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
         )}
       >
         <CardContent className="p-0 flex-1 flex flex-col">
@@ -185,7 +186,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
               </div>
                <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.preventDefault()}>
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
