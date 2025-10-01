@@ -18,6 +18,7 @@ export type Video = {
   shares: number;
   commentsCount: number;
   createdAt: string; // ISO string
+  isPremium?: boolean;
 };
 
 export type Comment = {

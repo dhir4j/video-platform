@@ -8,13 +8,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getUser } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Heart, MessageCircle, Share2, Maximize, Minimize } from 'lucide-react';
+import { PlayCircle, Heart, MessageCircle, Share2, Maximize, Minimize, Gem } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { CommentThread } from '../comments/comment-thread';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ScrollArea } from '../ui/scroll-area';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
+import { Badge } from '../ui/badge';
 
 interface VideoCardProps {
   video: Video;
@@ -99,6 +100,12 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
       >
         <CardContent className="p-0">
             <div className="relative">
+              {video.isPremium && (
+                <Badge variant="default" className="absolute top-2 left-2 z-10 bg-gradient-to-r from-pink-500 to-purple-600 border-0 shadow-lg">
+                  <Gem className="mr-2 h-3 w-3" />
+                  Premium
+                </Badge>
+              )}
               <Image
                 src={video.thumbnailUrl}
                 alt={video.title}

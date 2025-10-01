@@ -35,6 +35,7 @@ const videos: Video[] = [
     shares: Math.floor(Math.random() * 1000),
     commentsCount: Math.floor(Math.random() * 500),
     createdAt: new Date(Date.now() - Math.random() * 1000 * 3600 * 24 * 30).toISOString(),
+    isPremium: i % 3 === 0, // Mark every 3rd long video as premium
   })),
   // Short Videos
   ...Array.from({ length: 10 }, (_, i) => ({
@@ -51,6 +52,7 @@ const videos: Video[] = [
     shares: Math.floor(Math.random() * 500),
     commentsCount: Math.floor(Math.random() * 100),
     createdAt: new Date(Date.now() - Math.random() * 1000 * 3600 * 24 * 7).toISOString(),
+    isPremium: i % 4 === 0, // Mark every 4th short video as premium
   })),
 ];
 

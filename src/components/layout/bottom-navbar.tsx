@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame, Clapperboard, User, ListFilter } from "lucide-react";
+import { Flame, Clapperboard, User, ListFilter, Gem } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/shorts", icon: Flame, label: "Shorts" },
   { href: "/", icon: Clapperboard, label: "Video" },
+  { href: "/subscribe", icon: Gem, label: "Premium" },
   { href: "/categories", icon: ListFilter, label: "Categories" },
   { href: "/profile", icon: User, label: "Profile" },
 ];
@@ -17,7 +18,7 @@ export function BottomNavbar() {
 
   return (
     <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-background border-t border-border md:hidden">
-      <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+      <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         {navItems.map((item) => {
           const isActive = (pathname === item.href) || (pathname !== "/" && item.href !== "/" && pathname.startsWith(item.href));
           const isHomeActive = item.href === "/" && pathname === "/";

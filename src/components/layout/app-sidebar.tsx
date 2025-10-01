@@ -12,7 +12,7 @@ import {
   SidebarSeparator
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Flame, User, Settings, Clapperboard, ListFilter } from "lucide-react";
+import { Flame, User, Settings, Clapperboard, ListFilter, Gem } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { getUser } from "@/lib/data";
 
@@ -25,6 +25,7 @@ export function AppSidebar() {
     { href: "/", icon: <Clapperboard />, label: "Video", tooltip: "Video" },
     { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
     { href: "/categories", icon: <ListFilter />, label: "Categories", tooltip: "Categories" },
+    { href: "/subscribe", icon: <Gem />, label: "Premium", tooltip: "Premium" },
     { href: "/profile", icon: <User />, label: "Profile", tooltip: "Profile" },
   ];
 
