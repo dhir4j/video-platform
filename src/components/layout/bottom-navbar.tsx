@@ -20,9 +20,9 @@ export function BottomNavbar() {
     <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-background border-t border-border md:hidden">
       <div className="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
         {navItems.map((item) => {
-          const isActive = (pathname === item.href) || (pathname !== "/" && item.href !== "/" && pathname.startsWith(item.href));
-          const isHomeActive = item.href === "/" && pathname === "/";
-          const finalIsActive = item.href === "/" ? isHomeActive : isActive;
+          const isActive =
+            (pathname === "/" && item.href === "/") ||
+            (item.href !== "/" && pathname.startsWith(item.href));
 
           return (
             <Link
@@ -33,7 +33,7 @@ export function BottomNavbar() {
               <item.icon
                 className={cn(
                   "w-6 h-6 mb-1 text-muted-foreground group-hover:text-primary",
-                  finalIsActive && "text-primary"
+                  isActive && "text-primary"
                 )}
               />
               <span className="sr-only">{item.label}</span>
