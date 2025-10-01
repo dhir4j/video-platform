@@ -22,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { formatDistanceToNow } from 'date-fns';
+import { Separator } from '../ui/separator';
 
 interface LongVideoPlayerProps {
   video: Video;
@@ -90,7 +91,9 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
         </div>
       </div>
       
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-y">
+      <Separator className="my-4" />
+
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
          <div className="flex items-center gap-3">
           <Avatar className="h-12 w-12">
             <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
@@ -107,14 +110,18 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
         </Button>
       </div>
       
-      <div className="p-4 rounded-lg bg-secondary/50">
-        <p className="font-semibold">Description</p>
+      <div className="p-4 rounded-lg bg-secondary">
+        <div className="flex gap-4 font-semibold text-sm">
+          <p>Description</p>
+        </div>
         <p className="mt-2 text-sm text-muted-foreground">{video.description}</p>
-        <div className="flex flex-wrap gap-2 mt-4">
-          <h3 className="font-semibold w-full">Tags</h3>
-          {video.tags.map(tag => (
-            <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary/20">{tag}</Badge>
-          ))}
+        <div className="mt-4">
+          <h3 className="font-semibold text-sm mb-2">Tags</h3>
+          <div className="flex flex-wrap gap-2">
+            {video.tags.map(tag => (
+              <Badge key={tag} variant="secondary" className="cursor-pointer hover:bg-primary/20 rounded-full">{tag}</Badge>
+            ))}
+          </div>
         </div>
       </div>
     </div>
