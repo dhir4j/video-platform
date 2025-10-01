@@ -12,7 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { ChevronUp, ChevronDown, Heart, MessageCircle, Share2, MoreVertical } from 'lucide-react';
+import { Heart, MessageCircle, Share2, MoreVertical } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { getUser } from "@/lib/data";
 
