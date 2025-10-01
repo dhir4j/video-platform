@@ -8,3 +8,4 @@ export default function ShortsLayout({
   // The AppShell is removed to allow for a full-screen experience.
   return <div className="h-screen w-screen bg-black">{children}</div>;
 }
+

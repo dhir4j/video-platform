@@ -20,3 +20,4 @@ export default function ShortsIdPage({ params }: { params: { id: string } }) {
     </div>
   );
 }
+
