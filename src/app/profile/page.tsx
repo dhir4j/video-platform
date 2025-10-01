@@ -19,6 +19,8 @@ export default function ProfilePage() {
 
   const userVideos = allVideos.filter(video => video.uploaderId === user.id);
   const likedVideos = allVideos.slice(0, 5); // Mock liked videos
+  const historyVideos = allVideos.slice(5, 15); // Mock history videos
+
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -59,9 +61,10 @@ export default function ProfilePage() {
       </div>
 
       <Tabs defaultValue="videos" className="mt-8">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="videos">Videos</TabsTrigger>
           <TabsTrigger value="liked">Liked</TabsTrigger>
+          <TabsTrigger value="history">History</TabsTrigger>
         </TabsList>
         <TabsContent value="videos">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-4">
@@ -74,6 +77,13 @@ export default function ProfilePage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-4">
             {likedVideos.map((video) => (
               <VideoCard key={video.id} video={video} orientation="vertical" />
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="history">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-4">
+            {historyVideos.map((video) => (
+              <VideoCard key={video.id} video={video} />
             ))}
           </div>
         </TabsContent>
