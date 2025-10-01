@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useRef, useEffect, MouseEvent } from 'react';
@@ -98,7 +99,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
         className={cn(
           "overflow-hidden h-full transition-all duration-300 bg-card rounded-lg",
           "flex flex-col",
-          "border border-transparent group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10"
+          "border border-border/50 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
         )}
       >
         <CardContent className="p-0 flex-1 flex flex-col">
@@ -170,13 +171,13 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
               )}
             </div>
             
-            <div className="flex gap-3 p-3">
+            <div className="flex gap-4 p-3">
                 <Avatar className="h-10 w-10 shrink-0">
                 <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
                 <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                  <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{video.title}</h3>
+                  <h3 className="font-bold text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{video.title}</h3>
                   <p className="text-sm text-muted-foreground mt-1 truncate">{uploader?.name}</p>
                   <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
                     <span>{video.likes.toLocaleString()} views</span>
