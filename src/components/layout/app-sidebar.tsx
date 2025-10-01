@@ -44,7 +44,7 @@ export function AppSidebar() {
               <Link href={item.href} className="w-full">
                 <SidebarMenuButton
                   tooltip={item.tooltip}
-                  isActive={pathname === item.href}
+                  isActive={pathname === item.href || (pathname.startsWith(item.href) && item.href !== '/')}
                 >
                   {item.icon}
                   <span>{item.label}</span>
