@@ -21,7 +21,7 @@ const descriptions = [
 
 const videos: Video[] = [
   // Long Videos
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 20 }, (_, i) => ({
     id: `long_${i + 1}`,
     title: `A Long Journey Part ${i + 1}`,
     description: descriptions[i % descriptions.length],
@@ -29,7 +29,7 @@ const videos: Video[] = [
     uploaderId: users[i % users.length].id,
     country: countries[i % countries.length],
     tags: [tags[i % tags.length], tags[(i + 1) % tags.length]],
-    thumbnailUrl: imageMap.get(`long_video_${i + 1}`)?.imageUrl ?? '',
+    thumbnailUrl: imageMap.get(`long_video_${i + 1}`)?.imageUrl ?? `https://picsum.photos/seed/${i+1}/640/360`,
     videoUrl: '',
     likes: Math.floor(Math.random() * 10000),
     shares: Math.floor(Math.random() * 1000),
@@ -38,7 +38,7 @@ const videos: Video[] = [
     isPremium: i % 3 === 0, // Mark every 3rd long video as premium
   })),
   // Short Videos
-  ...Array.from({ length: 10 }, (_, i) => ({
+  ...Array.from({ length: 20 }, (_, i) => ({
     id: `short_${i + 1}`,
     title: `Quick Clip #${i + 1}`,
     description: `A quick look at something cool. ${descriptions[i % descriptions.length]}`,
@@ -46,7 +46,7 @@ const videos: Video[] = [
     uploaderId: users[i % users.length].id,
     country: countries[(i + 5) % countries.length],
     tags: [tags[(i + 2) % tags.length]],
-    thumbnailUrl: imageMap.get(`short_video_${i + 1}`)?.imageUrl ?? '',
+    thumbnailUrl: imageMap.get(`short_video_${i + 1}`)?.imageUrl ?? `https://picsum.photos/seed/short${i+1}/360/640`,
     videoUrl: '',
     likes: Math.floor(Math.random() * 5000),
     shares: Math.floor(Math.random() * 500),
@@ -100,5 +100,5 @@ export function getCountries(): string[] {
 }
 
 export function getTags(): string[] {
-    return [...new Set(videos.flatMap(v => v.tags))].sort();
+    return tags;
 }

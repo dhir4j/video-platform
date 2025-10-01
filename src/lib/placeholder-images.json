@@ -61,124 +61,124 @@
       "imageHint": "person portrait"
     },
     {
-      "id": "long_video_1",
-      "description": "Long video thumbnail 1",
-      "imageUrl": "https://images.unsplash.com/photo-1649841432772-a6ce266a5019?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhYnN0cmFjdCUyMG5lb258ZW58MHx8fHwxNzU4NzIwMzE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract neon"
+      "id": "category_lifestyle",
+      "description": "Lifestyle category image",
+      "imageUrl": "https://images.unsplash.com/photo-1754214217593-1dda6cff33ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsaWZlc3R5bGUlMjBjaXR5fGVufDB8fHx8MTc1OTI0NTkxOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "lifestyle city"
     },
     {
-      "id": "long_video_2",
-      "description": "Long video thumbnail 2",
-      "imageUrl": "https://images.unsplash.com/photo-1506606401543-2e73709cebb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaXR5JTIwbmlnaHR8ZW58MHx8fHwxNzU4Njg1Mzc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "city night"
+      "id": "category_gaming",
+      "description": "Gaming category image",
+      "imageUrl": "https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnYW1pbmclMjBzZXR1cHxlbnwwfHx8fDE3NTkyODMyMjB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gaming setup"
     },
     {
-      "id": "long_video_3",
-      "description": "Long video thumbnail 3",
-      "imageUrl": "https://images.unsplash.com/photo-1640184713839-9b87bde3cba5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZnV0dXJpc3RpYyUyMHRlY2hub2xvZ3l8ZW58MHx8fHwxNzU4NzM1NTU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "futuristic technology"
+      "id": "category_music",
+      "description": "Music category image",
+      "imageUrl": "https://images.unsplash.com/photo-1604364260242-1156640c0dfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb25jZXJ0JTIwbGl2ZXxlbnwwfHx8fDE3NTkzNTA5NjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "concert live"
     },
     {
-      "id": "long_video_4",
-      "description": "Long video thumbnail 4",
-      "imageUrl": "https://images.unsplash.com/photo-1716845943769-5ea6af684582?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnbG93aW5nJTIwbGluZXN8ZW58MHx8fHwxNzU4NzQwMzgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "glowing lines"
+      "id": "category_dance",
+      "description": "Dance category image",
+      "imageUrl": "https://images.unsplash.com/photo-1555944104-f487ee9f05c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGFuY2luZyUyMHN0cmVldHxlbnwwfHx8fDE3NTkyNTc3MTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dancing street"
     },
     {
-      "id": "long_video_5",
-      "description": "Long video thumbnail 5",
-      "imageUrl": "https://images.unsplash.com/photo-1712953544622-b8116efaf31d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHx2aWJyYW50JTIwY29sb3JzfGVufDB8fHx8MTc1ODcxNTA3MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "vibrant colors"
+      "id": "category_comedy",
+      "description": "Comedy category image",
+      "imageUrl": "https://images.unsplash.com/photo-1641903806973-17eaf2d2634f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzdGFuZHVwJTIwY29tZWR5fGVufDB8fHx8MTc1OTMwMjY3NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "standup comedy"
     },
     {
-      "id": "long_video_6",
-      "description": "Long video thumbnail 6",
-      "imageUrl": "https://images.unsplash.com/photo-1689443111130-6e9c7dfd8f9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3liZXJwdW5rJTIwYWVzdGhldGljfGVufDB8fHx8MTc1ODc0MDM4MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "cyberpunk aesthetic"
+      "id": "category_education",
+      "description": "Education category image",
+      "imageUrl": "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxib29rcyUyMGxpYnJhcnl8ZW58MHx8fHwxNzU5MjQ0OTU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "books library"
     },
     {
-      "id": "long_video_7",
-      "description": "Long video thumbnail 7",
-      "imageUrl": "https://images.unsplash.com/photo-1635322966219-b75ed372eb01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkaWdpdGFsJTIwYXJ0fGVufDB8fHx8MTc1ODY5MzQzMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "digital art"
+      "id": "category_travel",
+      "description": "Travel category image",
+      "imageUrl": "https://images.unsplash.com/photo-1670974636823-1341d802d5b4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb3VudGFpbnMlMjBsYW5kc2NhcGV8ZW58MHx8fHwxNzU5MzM1NjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mountains landscape"
     },
     {
-      "id": "long_video_8",
-      "description": "Long video thumbnail 8",
-      "imageUrl": "https://images.unsplash.com/photo-1439792675105-701e6a4ab6f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkYXJrJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dark landscape"
+      "id": "category_tech",
+      "description": "Tech category image",
+      "imageUrl": "https://images.unsplash.com/photo-1562408590-e32931084e23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXJjdWl0JTIwYm9hcmR8ZW58MHx8fHwxNzU5MjM0NjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "circuit board"
     },
     {
-      "id": "long_video_9",
-      "description": "Long video thumbnail 9",
-      "imageUrl": "https://images.unsplash.com/photo-1631610039335-3de4e10e13c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYW50YXN5JTIwd29ybGR8ZW58MHx8fHwxNzU4NzIwNjg4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "fantasy world"
+      "id": "category_fashion",
+      "description": "Fashion category image",
+      "imageUrl": "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmYXNoaW9uJTIwbW9kZWx8ZW58MHx8fHwxNzU5MzQ0NTI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fashion model"
     },
     {
-      "id": "long_video_10",
-      "description": "Long video thumbnail 10",
-      "imageUrl": "https://images.unsplash.com/photo-1625113538249-a832327131cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyZXRybyUyMHdhdmV8ZW58MHx8fHwxNzU4NzM5NzM2fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "retro wave"
+      "id": "category_art",
+      "description": "Art category image",
+      "imageUrl": "https://images.unsplash.com/photo-1569783721854-33a99b4c0bae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcnQlMjBnYWxsZXJ5fGVufDB8fHx8MTc1OTMzNTMwNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "art gallery"
     },
     {
-      "id": "short_video_1",
-      "description": "Short video thumbnail 1",
-      "imageUrl": "https://images.unsplash.com/photo-1578476716036-19df8e6dcb22?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwb3J0cmFpdCUyMG1vZGVsfGVufDB8fHx8MTc1ODc0MDM4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "portrait model"
+      "id": "category_food",
+      "description": "Food category image",
+      "imageUrl": "https://images.unsplash.com/photo-1661529515567-dcb300f41da5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkZWxpY2lvdXMlMjBmb29kfGVufDB8fHx8MTc1OTM1MDA2OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "delicious food"
     },
     {
-      "id": "short_video_2",
-      "description": "Short video thumbnail 2",
-      "imageUrl": "https://images.unsplash.com/photo-1641839227948-0a1033b7e85e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZmFzaGlvbiUyMHN0eWxlfGVufDB8fHx8MTc1ODcwNzY3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "fashion style"
+      "id": "category_fitness",
+      "description": "Fitness category image",
+      "imageUrl": "https://images.unsplash.com/photo-1692369608036-59e48759b6e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxneW0lMjB3b3Jrb3V0fGVufDB8fHx8MTc1OTIyNjc5M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gym workout"
     },
     {
-      "id": "short_video_3",
-      "description": "Short video thumbnail 3",
-      "imageUrl": "https://images.unsplash.com/photo-1731952661356-22abb4c32343?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkYW5jaW5nJTIwbGlnaHRzfGVufDB8fHx8MTc1ODYyOTY4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dancing lights"
+      "id": "category_diy",
+      "description": "DIY category image",
+      "imageUrl": "https://images.unsplash.com/photo-1624905917904-4afb5105b5ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjcmFmdCUyMHRvb2xzfGVufDB8fHx8MTc1OTMyNDk4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "craft tools"
     },
     {
-      "id": "short_video_4",
-      "description": "Short video thumbnail 4",
-      "imageUrl": "https://images.unsplash.com/photo-1596311087104-86dba6be2aad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx1cmJhbiUyMHN0cmVldHxlbnwwfHx8fDE3NTg2MjgzMzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "urban street"
+      "id": "category_vlog",
+      "description": "Vlog category image",
+      "imageUrl": "https://images.unsplash.com/photo-1630797160666-38e8c5ba44c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2FtZXJhJTIwdmxvZ2dpbmd8ZW58MHx8fHwxNzU5MzUwOTY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "camera vlogging"
     },
     {
-      "id": "short_video_5",
-      "description": "Short video thumbnail 5",
-      "imageUrl": "https://images.unsplash.com/photo-1566421399596-c9a8689f5211?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Z2xvd2luZyUyMHBvcnRyYWl0fGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "glowing portrait"
+      "id": "category_animation",
+      "description": "Animation category image",
+      "imageUrl": "https://images.unsplash.com/photo-1678895643086-ca22c349fe75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjYXJ0b29uJTIwYW5pbWF0aW9ufGVufDB8fHx8MTc1OTMwNjQ2OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartoon animation"
     },
     {
-      "id": "short_video_6",
-      "description": "Short video thumbnail 6",
-      "imageUrl": "https://images.unsplash.com/photo-1580747182688-aa1f07847e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxuZW9uJTIwc2lnbnN8ZW58MHx8fHwxNzU4NjQxMTI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "neon signs"
+      "id": "category_sports",
+      "description": "Sports category image",
+      "imageUrl": "https://images.unsplash.com/photo-1532306486637-1d593e9e0415?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8c29jY2VyJTIwZ2FtZXxlbnwwfHx8fDE3NTkyNzA0Mjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "soccer game"
     },
     {
-      "id": "short_video_7",
-      "description": "Short video thumbnail 7",
-      "imageUrl": "https://images.unsplash.com/photo-1588683301876-3c135dc6305c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjbG9zZSUyMHVwfGVufDB8fHx8MTc1ODc0MDM4MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "close up"
+      "id": "category_science",
+      "description": "Science category image",
+      "imageUrl": "https://images.unsplash.com/photo-1614308457932-e16d85c5d053?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxsYWJvcmF0b3J5JTIwc2NpZW5jZXxlbnwwfHx8fDE3NTkyOTQ1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "laboratory science"
     },
     {
-      "id": "short_video_8",
-      "description": "Short video thumbnail 8",
-      "imageUrl": "https://images.unsplash.com/photo-1544502062-f82887f03d1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzaWxob3VldHRlfGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "silhouette"
+      "id": "category_nature",
+      "description": "Nature category image",
+      "imageUrl": "https://images.unsplash.com/photo-1696250863507-262618217c55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmb3Jlc3QlMjBuYXR1cmV8ZW58MHx8fHwxNzU5MzM5NzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "forest nature"
     },
     {
-      "id": "short_video_9",
-      "description": "Short video thumbnail 9",
-      "imageUrl": "https://images.unsplash.com/photo-1671955100855-074bf3f3db3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhcnRpc3RpY3xlbnwwfHx8fDE3NTg3NDAzODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "artistic"
+      "id": "category_movies",
+      "description": "Movies category image",
+      "imageUrl": "https://images.unsplash.com/photo-1604975701397-6365ccbd028a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjaW5lbWElMjB0aGVhdGVyfGVufDB8fHx8MTc1OTI3MDc3Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cinema theater"
     },
     {
-      "id": "short_video_10",
-      "description": "Short video thumbnail 10",
-      "imageUrl": "https://images.unsplash.com/photo-1573753068299-693aa39519aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx2aWJyYW50JTIwbWFrZXVwfGVufDB8fHx8MTc1ODc0MDM4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "vibrant makeup"
+      "id": "category_asmr",
+      "description": "ASMR category image",
+      "imageUrl": "https://images.unsplash.com/photo-1718664485620-0e0a2f781120?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxtaWNyb3Bob25lJTIwc291bmR8ZW58MHx8fHwxNzU5MzUwOTY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "microphone sound"
     }
   ]
 }
