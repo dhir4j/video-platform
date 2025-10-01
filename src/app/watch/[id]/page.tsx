@@ -6,7 +6,8 @@ import { VideoCard } from '@/components/video/video-card';
 import { Separator } from '@/components/ui/separator';
 
 export default function WatchPage({ params }: { params: { id: string } }) {
-  const video = getVideo(params.id);
+  const { id } = params;
+  const video = getVideo(id);
   
   if (!video || video.type !== 'long') {
     notFound();
