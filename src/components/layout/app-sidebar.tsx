@@ -2,6 +2,7 @@
 "use client"
 
 import Link from "next/link";
+import React from "react";
 import { 
   Sidebar,
   SidebarContent,
@@ -17,16 +18,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { getUser, getUsers } from "@/lib/data";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CategoryHoverMenu } from "./category-hover-menu";
-import React from "react";
-
+import { getUser, getUsers, getTags } from "@/lib/data";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function AppSidebar() {
   const pathname = usePathname();
   const user = getUser("user_1");
   const subscriptions = getUsers().slice(1, 6);
+  const tags = getTags();
   const [categoryMenuOpen, setCategoryMenuOpen] = React.useState(false);
 
   const menuItems = [
@@ -64,37 +65,47 @@ export function AppSidebar() {
               </Link>
             </SidebarMenuItem>
           ))}
-           <Popover open={categoryMenuOpen} onOpenChange={setCategoryMenuOpen}>
-              <PopoverTrigger asChild>
-                <div 
-                  onMouseEnter={() => setCategoryMenuOpen(true)} 
-                  onMouseLeave={() => setCategoryMenuOpen(false)}
-                  className="w-full"
-                >
-                  <SidebarMenuItem>
-                    <Link href="/categories" className="w-full">
-                      <SidebarMenuButton
-                        tooltip="Categories"
-                        isActive={pathname.startsWith('/categories')}
-                      >
-                        <ListFilter />
-                        <span>Categories</span>
-                      </SidebarMenuButton>
-                    </Link>
-                  </SidebarMenuItem>
-                </div>
-              </PopoverTrigger>
-              <PopoverContent 
-                side="right" 
-                align="start" 
-                sideOffset={10} 
-                className="p-0 w-48"
+           <Collapsible open={categoryMenuOpen} onOpenChange={setCategoryMenuOpen} className="w-full">
+              <div 
                 onMouseEnter={() => setCategoryMenuOpen(true)} 
                 onMouseLeave={() => setCategoryMenuOpen(false)}
               >
-                <CategoryHoverMenu />
-              </PopoverContent>
-            </Popover>
+                <CollapsibleTrigger asChild>
+                    <SidebarMenuItem className="w-full">
+                         <SidebarMenuButton
+                            tooltip="Categories"
+                            isActive={pathname.startsWith('/categories')}
+                            className="w-full justify-between"
+                          >
+                            <div className="flex items-center gap-2">
+                              <ListFilter />
+                              <span>Categories</span>
+                            </div>
+                            <ChevronDown className={cn("h-4 w-4 transition-transform", categoryMenuOpen && "rotate-180")} />
+                          </SidebarMenuButton>
+                    </SidebarMenuItem>
+                </CollapsibleTrigger>
+                <CollapsibleContent className="data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up overflow-hidden">
+                   <div className="flex flex-col space-y-1 py-2 pl-11 pr-2">
+                    {tags.slice(0, 5).map((tag) => (
+                      <Link
+                        href={`/categories/${tag.toLowerCase()}`}
+                        key={tag}
+                        className="rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                      >
+                        {tag}
+                      </Link>
+                    ))}
+                     <Link
+                        href="/categories"
+                        className="rounded-md px-2 py-1.5 text-sm font-semibold text-primary hover:bg-accent hover:text-accent-foreground"
+                      >
+                        View All...
+                      </Link>
+                  </div>
+                </CollapsibleContent>
+              </div>
+            </Collapsible>
         </SidebarMenu>
         <SidebarSeparator />
         <SidebarGroup>
