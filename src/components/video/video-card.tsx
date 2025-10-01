@@ -97,7 +97,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
         ref={cardRef}
         className={cn(
           "overflow-hidden h-full transition-all duration-300 bg-card rounded-xl",
-          "flex flex-col p-3",
+          "flex flex-col p-4",
           "border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
         )}
       >
