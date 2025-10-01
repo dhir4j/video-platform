@@ -96,26 +96,26 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
       <Card
         ref={cardRef}
         className={cn(
-          "overflow-hidden h-full transition-all duration-300 bg-card rounded-xl",
-          "flex flex-col p-4",
-          "border hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
+          "overflow-hidden h-full transition-all duration-300 bg-card rounded-lg",
+          "flex flex-col",
+          "border border-transparent group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10"
         )}
       >
         <CardContent className="p-0 flex-1 flex flex-col">
-            <div className="relative mb-3">
+            <div className="relative">
               <Image
                 src={video.thumbnailUrl}
                 alt={video.title}
                 width={isVertical ? 360 : 640}
                 height={isVertical ? 640 : 360}
                 className={cn(
-                  "object-cover w-full transition-transform duration-300 group-hover:scale-105 rounded-lg", 
-                  isVertical ? "aspect-[9/16]" : "aspect-video",
+                  "object-cover w-full transition-transform duration-300 group-hover:scale-105 rounded-t-lg", 
+                  isVertical ? "aspect-[9/16] rounded-b-lg" : "aspect-video",
                   isFullscreen ? "object-contain h-screen rounded-none" : ""
                 )}
                 data-ai-hint={video.type === 'short' ? 'portrait model' : 'abstract neon'}
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center rounded-lg">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center rounded-t-lg">
                  <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100" />
               </div>
 
@@ -169,8 +169,8 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                 </Badge>
               )}
             </div>
-
-            <div className="flex gap-3">
+            
+            <div className="flex gap-3 p-3">
                 <Avatar className="h-10 w-10 shrink-0">
                 <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
                 <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
