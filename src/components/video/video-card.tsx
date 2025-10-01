@@ -96,8 +96,8 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
       <Card
         ref={cardRef}
         className={cn(
-          "overflow-hidden h-full transition-shadow duration-300 border-none bg-transparent shadow-none",
-          "flex flex-col"
+          "overflow-hidden h-full transition-shadow duration-300 bg-card rounded-xl",
+          "flex flex-col p-3"
         )}
       >
         <CardContent className="p-0 flex-1 flex flex-col">
@@ -108,13 +108,13 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                 width={isVertical ? 360 : 640}
                 height={isVertical ? 640 : 360}
                 className={cn(
-                  "object-cover w-full transition-transform duration-300 group-hover:scale-105 rounded-xl", 
+                  "object-cover w-full transition-transform duration-300 group-hover:scale-105 rounded-lg", 
                   isVertical ? "aspect-[9/16]" : "aspect-video",
                   isFullscreen ? "object-contain h-screen rounded-none" : ""
                 )}
                 data-ai-hint={video.type === 'short' ? 'portrait model' : 'abstract neon'}
               />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center rounded-xl">
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center rounded-lg">
                  <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100" />
               </div>
 
@@ -124,7 +124,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
               
               {isVertical ? (
                 <>
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent rounded-b-xl">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
                     <h3 className="font-semibold text-base leading-tight truncate text-white group-hover:text-primary transition-colors">{video.title}</h3>
                   </div>
                   {video.type === 'short' && (
