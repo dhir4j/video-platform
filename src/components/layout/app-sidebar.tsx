@@ -16,7 +16,7 @@ import {
   SidebarGroupLabel
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare } from "lucide-react";
+import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare, TrendingUp, Star, Heart } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { getUser, getUsers, getTags } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -41,6 +41,13 @@ export function AppSidebar() {
       { href: "/profile#liked", icon: <ThumbsUp />, label: "Liked Videos", tooltip: "Liked Videos" },
       { href: "/profile", icon: <User />, label: "Your Profile", tooltip: "Your Profile"},
   ]
+  
+  const exploreItems = [
+    { href: "/trending", icon: <TrendingUp />, label: "Trending", tooltip: "Trending" },
+    { href: "/popular", icon: <Star />, label: "Popular", tooltip: "Popular" },
+    { href: "/most-liked", icon: <Heart />, label: "Most Liked", tooltip: "Most Liked" },
+  ];
+
 
   return (
     <Sidebar>
@@ -107,6 +114,25 @@ export function AppSidebar() {
               </div>
             </Collapsible>
         </SidebarMenu>
+        <SidebarSeparator />
+         <SidebarGroup>
+            <SidebarGroupLabel>Explore</SidebarGroupLabel>
+            <SidebarMenu>
+                 {exploreItems.map((item) => (
+                    <SidebarMenuItem key={item.href}>
+                    <Link href={item.href} className="w-full">
+                        <SidebarMenuButton
+                          tooltip={item.tooltip}
+                          isActive={pathname === item.href}
+                        >
+                          {item.icon}
+                          <span>{item.label}</span>
+                        </SidebarMenuButton>
+                    </Link>
+                    </SidebarMenuItem>
+                ))}
+            </SidebarMenu>
+        </SidebarGroup>
         <SidebarSeparator />
         <SidebarGroup>
             <SidebarGroupLabel>Library</SidebarGroupLabel>

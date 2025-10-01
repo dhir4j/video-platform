@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, MouseEvent } from 'react';
@@ -16,6 +17,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { ScrollArea } from '../ui/scroll-area';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from '../ui/drawer';
 import { Badge } from '../ui/badge';
+import { formatDistanceToNow } from 'date-fns';
 
 interface VideoCardProps {
   video: Video;
@@ -89,16 +91,16 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
   }
   
   return (
-    <Link href={linkHref} className="group">
+    <Link href={linkHref} className="group flex flex-col h-full">
       <Card
         ref={cardRef}
         className={cn(
-          "overflow-hidden h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:border-primary/50",
+          "overflow-hidden h-full transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/20 group-hover:border-primary/50",
           isVertical ? "flex flex-col" : "",
-          "bg-card"
+          "bg-card flex flex-col"
         )}
       >
-        <CardContent className="p-0">
+        <CardContent className="p-0 flex-1 flex flex-col">
             <div className="relative">
               {video.isPremium && (
                 <Badge variant="default" className="absolute top-2 left-2 z-10 bg-gradient-to-r from-pink-500 to-purple-600 border-0 shadow-lg">
@@ -119,7 +121,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                 data-ai-hint={video.type === 'short' ? 'portrait model' : 'abstract neon'}
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-                 <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
+                 <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100" />
               </div>
               
               {isVertical && (
@@ -174,20 +176,22 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
             </div>
 
           {!isVertical && (
-            <div className="p-3 space-y-2">
-              <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors">{video.title}</h3>
-              <div className="flex items-center gap-2">
-                <Avatar className="h-6 w-6">
+            <div className="p-4 flex-1 flex flex-col">
+              <div className="flex gap-3">
+                 <Avatar className="h-10 w-10 mt-1">
                   <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
                   <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
                 </Avatar>
-                <p className="text-sm text-muted-foreground truncate">{uploader?.name}</p>
+                <div className="flex-1">
+                   <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{video.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 truncate">{uploader?.name}</p>
+                   <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                      <span>{video.likes.toLocaleString()} views</span>
+                      <span>•</span>
+                      <span>{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}</span>
+                   </div>
+                </div>
               </div>
-               <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-                  <span>{video.likes.toLocaleString()} likes</span>
-                  <span>•</span>
-                  <span>{new Date(video.createdAt).toLocaleDateString()}</span>
-               </div>
             </div>
           )}
         </CardContent>
