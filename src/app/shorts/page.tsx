@@ -8,7 +8,7 @@ export default function AllShortsPage() {
     
     if (shortVideos.length === 0) {
         return (
-            <div className="h-full flex items-center justify-center">
+            <div className="h-full flex items-center justify-center text-white">
                 <p>No shorts available.</p>
             </div>
         )
