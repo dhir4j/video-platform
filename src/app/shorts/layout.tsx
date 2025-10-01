@@ -4,6 +4,7 @@ export default function ShortsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Using AppShell which will handle the main layout structure
-  return <>{children}</>;
+  // Use a minimal layout for the immersive shorts feed.
+  // The AppShell is removed to allow for a full-screen experience.
+  return <div className="h-screen w-screen bg-black">{children}</div>;
 }

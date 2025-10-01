@@ -60,9 +60,10 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
 
   return (
     <div 
-        className="w-full h-full"
+        className="w-full h-full focus:outline-none"
         onKeyDownCapture={handleKeyDown}
         tabIndex={0}
+        ref={(el) => el?.focus()}
     >
         <Carousel 
             setApi={setApi} 
@@ -80,7 +81,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 return (
                   <CarouselItem key={video.id} className="pt-0 relative h-full">
                      <div className="relative w-full h-full flex items-center justify-center bg-black">
-                        <div className="relative w-full h-full max-w-md aspect-w-9 aspect-h-16 mx-auto">
+                        <div className="relative w-full h-full max-w-[26rem] mx-auto">
                             <Image
                                 src={video.thumbnailUrl}
                                 alt={video.title}

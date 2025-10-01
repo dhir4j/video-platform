@@ -1,6 +1,6 @@
 
 import { getVideos } from "@/lib/data";
-import { VideoCard } from "@/components/video/video-card";
+import { ShortsPlayer } from "@/components/video/shorts-player";
 
 export default function AllShortsPage() {
     const allVideos = getVideos();
@@ -15,14 +15,8 @@ export default function AllShortsPage() {
     }
 
     return (
-      <div className="w-full flex justify-center">
-        <div className="w-full max-w-[20.5rem]">
-            <div className="grid grid-cols-1 gap-8 py-4">
-                {shortVideos.map((video) => (
-                    <VideoCard key={video.id} video={video} orientation="vertical" />
-                ))}
-            </div>
-        </div>
+      <div className="w-full h-full">
+        <ShortsPlayer videos={shortVideos} />
       </div>
     )
 }

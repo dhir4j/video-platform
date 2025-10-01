@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { AppShell } from '@/components/layout/app-shell';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/layout/theme-provider';
+import RootLayoutClient from './layout-client';
 
 export const metadata: Metadata = {
   title: 'VibeVerse',
@@ -34,9 +34,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppShell>
+          <RootLayoutClient>
             {children}
-          </AppShell>
+          </RootLayoutClient>
           <Toaster />
         </ThemeProvider>
       </body>
