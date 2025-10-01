@@ -9,24 +9,31 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
-  SidebarSeparator
+  SidebarSeparator,
+  SidebarGroup,
+  SidebarGroupLabel
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Flame, User, Settings, Clapperboard, ListFilter, Gem } from "lucide-react";
+import { Flame, User, Settings, Clapperboard, Home, Compass, History, Clock, ThumbsUp, Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { getUser } from "@/lib/data";
+import { getUser, getUsers } from "@/lib/data";
 
 
 export function AppSidebar() {
   const pathname = usePathname();
   const user = getUser("user_1");
+  const subscriptions = getUsers().slice(0, 5); // Mock subscriptions
 
-  const menuItems = [
-    { href: "/", icon: <Clapperboard />, label: "Video", tooltip: "Video" },
+  const mainMenuItems = [
+    { href: "/", icon: <Home />, label: "Home", tooltip: "Home" },
+    { href: "/explore", icon: <Compass />, label: "Explore", tooltip: "Explore" },
     { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
-    { href: "/categories", icon: <ListFilter />, label: "Categories", tooltip: "Categories" },
-    { href: "/subscribe", icon: <Gem />, label: "Premium", tooltip: "Premium" },
-    { href: "/profile", icon: <User />, label: "Profile", tooltip: "Profile" },
+  ];
+
+  const libraryItems = [
+    { href: "/history", icon: <History />, label: "History", tooltip: "History" },
+    { href: "/watch-later", icon: <Clock />, label: "Watch Later", tooltip: "Watch Later" },
+    { href: "/liked", icon: <ThumbsUp />, label: "Liked Videos", tooltip: "Liked Videos" },
   ];
 
   return (
@@ -34,17 +41,17 @@ export function AppSidebar() {
       <SidebarHeader>
         <Link href="/" className="flex items-center gap-2">
             <Clapperboard className="w-8 h-8 text-primary" />
-            <span className="font-bold text-lg text-foreground group-data-[collapsible=icon]:hidden">NexusEros</span>
+            <span className="font-bold text-lg text-foreground group-data-[collapsible=icon]:hidden">VibeVerse</span>
         </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {menuItems.map((item) => (
+          {mainMenuItems.map((item) => (
             <SidebarMenuItem key={item.href}>
               <Link href={item.href} className="w-full">
                 <SidebarMenuButton
                   tooltip={item.tooltip}
-                  isActive={pathname === item.href || (pathname.startsWith(item.href) && item.href !== '/')}
+                  isActive={pathname === item.href}
                 >
                   {item.icon}
                   <span>{item.label}</span>
@@ -53,23 +60,68 @@ export function AppSidebar() {
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
+
+        <SidebarSeparator />
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Library</SidebarGroupLabel>
+          <SidebarMenu>
+            {libraryItems.map((item) => (
+              <SidebarMenuItem key={item.href}>
+                <Link href={item.href} className="w-full">
+                  <SidebarMenuButton
+                    tooltip={item.tooltip}
+                    isActive={pathname.startsWith(item.href)}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarSeparator />
+        
+        <SidebarGroup>
+          <SidebarGroupLabel>Subscriptions</SidebarGroupLabel>
+          <SidebarMenu>
+            {subscriptions.map((sub) => (
+              <SidebarMenuItem key={sub.id}>
+                <Link href={`/profile/${sub.id}`} className="w-full">
+                  <SidebarMenuButton
+                    tooltip={sub.name}
+                  >
+                    <Avatar className="h-7 w-7">
+                      <AvatarImage src={sub?.avatarUrl} alt={sub?.name} />
+                      <AvatarFallback>{sub?.name?.[0]}</AvatarFallback>
+                    </Avatar>
+                    <span className="truncate">{sub.name}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+
       </SidebarContent>
       <SidebarSeparator />
       <SidebarFooter>
         <SidebarMenu>
-           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Settings">
-              <Settings />
-              <span>Settings</span>
+          <SidebarMenuItem>
+            <SidebarMenuButton>
+              <Avatar className="h-7 w-7">
+                  <AvatarImage src={user?.avatarUrl} alt={user?.name} />
+                  <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
+              </Avatar>
+              <span className="truncate">{user?.name}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={user?.name}>
-              <Avatar className="h-7 w-7">
-                <AvatarImage src={user?.avatarUrl} alt={user?.name} />
-                <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
-              </Avatar>
-              <span className="truncate">{user?.name}</span>
+             <SidebarMenuButton>
+                <Plus />
+                <span>Create</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

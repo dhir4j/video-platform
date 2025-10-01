@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/layout/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'NexusEros',
+  title: 'VibeVerse',
   description: 'A global video feed for short and long form content.',
 };
 
