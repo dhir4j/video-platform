@@ -10,11 +10,6 @@ export default function CategoryPage({ params }: { params: { category: string } 
     video.tags.some((tag) => tag.toLowerCase() === category.toLowerCase())
   );
 
-  if (filteredVideos.length === 0) {
-    // Or you can render a "No videos found" message
-    // notFound(); 
-  }
-
   // Capitalize first letter for display
   const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
 
