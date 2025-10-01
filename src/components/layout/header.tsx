@@ -1,7 +1,8 @@
+
 "use client"
 
 import Link from "next/link";
-import { Search, User as UserIcon, MessageSquare, Rss, PlusSquare, Clapperboard } from "lucide-react";
+import { Search, User as UserIcon, MessageSquare, Rss, PlusSquare, Clapperboard, Upload, Gem } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,29 +32,30 @@ export function Header() {
         </Link>
       </div>
       
-      <div className="relative flex-1 max-w-md hidden md:flex">
-        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+      <div className="relative flex-1 max-w-md hidden md:block mx-auto">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           type="search"
-          placeholder="Search videos..."
-          className="w-full rounded-lg bg-secondary pl-8"
+          placeholder="Search..."
+          className="w-full rounded-full bg-secondary pl-10"
         />
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-          <PlusSquare />
+        <Button variant="outline" className="rounded-full hidden md:inline-flex">
+          <Upload className="mr-2 h-4 w-4" />
+          Upload
         </Button>
-        <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-          <MessageSquare />
-        </Button>
-         <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-          <Rss />
-        </Button>
+        <Link href="/subscribe" className="hidden md:inline-flex">
+          <Button className="rounded-full">
+            <Gem className="mr-2 h-4 w-4" />
+            Premium
+          </Button>
+        </Link>
         <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+            <Button variant="ghost" className="relative h-9 w-9 rounded-full">
               <Avatar className="h-9 w-9">
                 <AvatarImage src={user?.avatarUrl} alt={user?.name} />
                 <AvatarFallback>
@@ -67,7 +69,7 @@ export function Header() {
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">{user?.name}</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {user?.id}
+                  @{user?.id}
                 </p>
               </div>
             </DropdownMenuLabel>

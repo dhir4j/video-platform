@@ -11,9 +11,9 @@ export default function HomePage() {
   const mainVideos = longVideos.slice(0, 6);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <section>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
           {mainVideos.map((video) => (
             <VideoCard key={video.id} video={video} />
           ))}

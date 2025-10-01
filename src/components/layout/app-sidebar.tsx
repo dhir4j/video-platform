@@ -16,12 +16,13 @@ import {
   SidebarGroupLabel
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare, TrendingUp, Star, Heart } from "lucide-react";
+import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare, TrendingUp, Star, Heart, Gem } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { getUser, getUsers, getTags } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "../ui/button";
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -174,25 +175,12 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarSeparator />
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <Link href="/profile" className="w-full">
-                <SidebarMenuButton>
-                <Avatar className="h-7 w-7">
-                    <AvatarImage src={user?.avatarUrl} alt={user?.name} />
-                    <AvatarFallback>{user?.name?.[0]}</AvatarFallback>
-                </Avatar>
-                <span className="truncate">{user?.name}</span>
-                </SidebarMenuButton>
-            </Link>
-          </SidebarMenuItem>
-           <SidebarMenuItem>
-             <SidebarMenuButton>
-                <PlusSquare />
-                <span>Create</span>
-             </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+         <Link href="/subscribe" className="px-2">
+            <Button className="w-full justify-start" variant="outline">
+                <Gem className="mr-2 h-4 w-4" />
+                Premium
+            </Button>
+         </Link>
       </SidebarFooter>
     </Sidebar>
   )
