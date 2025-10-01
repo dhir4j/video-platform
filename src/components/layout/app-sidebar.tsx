@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link";
@@ -17,17 +18,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { getUser, getUsers } from "@/lib/data";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { CategoryHoverMenu } from "./category-hover-menu";
+import React from "react";
 
 
 export function AppSidebar() {
   const pathname = usePathname();
   const user = getUser("user_1");
   const subscriptions = getUsers().slice(1, 6);
+  const [categoryMenuOpen, setCategoryMenuOpen] = React.useState(false);
 
   const menuItems = [
     { href: "/", icon: <Home />, label: "Videos", tooltip: "Videos" },
     { href: "/shorts", icon: <Flame />, label: "Shorts", tooltip: "Shorts" },
-    { href: "/categories", icon: <ListFilter />, label: "Categories", tooltip: "Categories" },
   ];
   
   const libraryItems = [
@@ -60,6 +64,37 @@ export function AppSidebar() {
               </Link>
             </SidebarMenuItem>
           ))}
+           <Popover open={categoryMenuOpen} onOpenChange={setCategoryMenuOpen}>
+              <PopoverTrigger asChild>
+                <div 
+                  onMouseEnter={() => setCategoryMenuOpen(true)} 
+                  onMouseLeave={() => setCategoryMenuOpen(false)}
+                  className="w-full"
+                >
+                  <SidebarMenuItem>
+                    <Link href="/categories" className="w-full">
+                      <SidebarMenuButton
+                        tooltip="Categories"
+                        isActive={pathname.startsWith('/categories')}
+                      >
+                        <ListFilter />
+                        <span>Categories</span>
+                      </SidebarMenuButton>
+                    </Link>
+                  </SidebarMenuItem>
+                </div>
+              </PopoverTrigger>
+              <PopoverContent 
+                side="right" 
+                align="start" 
+                sideOffset={10} 
+                className="p-0 w-48"
+                onMouseEnter={() => setCategoryMenuOpen(true)} 
+                onMouseLeave={() => setCategoryMenuOpen(false)}
+              >
+                <CategoryHoverMenu />
+              </PopoverContent>
+            </Popover>
         </SidebarMenu>
         <SidebarSeparator />
         <SidebarGroup>
