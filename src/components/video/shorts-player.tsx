@@ -108,19 +108,21 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
     >
         <Carousel
             setApi={setApi}
-            className="relative w-full h-full"
+            className="relative w-full h-full overflow-hidden"
             orientation="vertical"
             opts={{
                 align: "start",
                 loop: true,
                 startIndex: startIndex,
+                skipSnaps: false,
+                dragFree: false,
             }}
         >
-          <CarouselContent className="h-full -mt-0">
+          <CarouselContent className="h-screen -mt-0">
               {videos.map((video, index) => {
                 const uploader = getUser(video.uploaderId);
                 return (
-                  <CarouselItem key={video.id} className="pt-0 relative h-full">
+                  <CarouselItem key={video.id} className="pt-0 relative h-screen min-h-screen basis-full">
                      <div className="relative w-full h-full flex items-center justify-center bg-black">
                         <div className="relative w-full h-full max-w-[26rem] mx-auto">
                             {/* Video Element - Using placeholder for now */}
