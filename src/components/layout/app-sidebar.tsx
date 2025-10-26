@@ -18,7 +18,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Clapperboard, Home, Flame, ListFilter, User, History, Clock, ThumbsUp, PlusSquare, TrendingUp, Star, Heart } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { getUser, getUsers, getTags } from "@/lib/data";
+import { getUser, getTags } from "@/lib/data";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,6 @@ import { Button } from "../ui/button";
 export function AppSidebar() {
   const pathname = usePathname();
   const user = getUser("user_1");
-  const subscriptions = getUsers().slice(1, 6);
   const tags = getTags();
   const [categoryMenuOpen, setCategoryMenuOpen] = React.useState(false);
 
@@ -149,25 +148,6 @@ export function AppSidebar() {
                         <span>{item.label}</span>
                         </SidebarMenuButton>
                     </Link>
-                    </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
-        </SidebarGroup>
-        <SidebarSeparator />
-         <SidebarGroup>
-            <SidebarGroupLabel>Subscriptions</SidebarGroupLabel>
-            <SidebarMenu>
-                {subscriptions.map(sub => (
-                    <SidebarMenuItem key={sub.id}>
-                        <Link href={`/profile/${sub.id}`} className="w-full">
-                            <SidebarMenuButton tooltip={sub.name}>
-                                <Avatar className="h-7 w-7">
-                                    <AvatarImage src={sub.avatarUrl} alt={sub.name} />
-                                    <AvatarFallback>{sub.name?.[0]}</AvatarFallback>
-                                </Avatar>
-                                <span>{sub.name}</span>
-                            </SidebarMenuButton>
-                        </Link>
                     </SidebarMenuItem>
                 ))}
             </SidebarMenu>

@@ -14,8 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Heart, MessageCircle, Share2, MoreVertical, Volume2, VolumeX, X } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { getUser, getComments } from "@/lib/data";
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { getUser } from "@/lib/data";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CommentThread } from "../comments/comment-thread";
 
@@ -176,7 +175,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 return (
                   <CarouselItem key={video.id} className="pt-0 relative h-[calc(100vh-4rem)] md:h-screen min-h-[calc(100vh-4rem)] md:min-h-screen basis-full">
                      <div className="relative w-full h-full flex items-center justify-center bg-black">
-                        <div className="relative w-full h-full max-w-[600px] mx-auto">
+                        <div className="relative w-full h-full max-w-[400px] mx-auto">
                             {/* Video Element */}
                             <video
                                 ref={(el) => {
@@ -277,40 +276,60 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
           </CarouselContent>
         </Carousel>
 
-        {/* Comments Sheet */}
-        <Sheet open={showComments} onOpenChange={setShowComments}>
-          <SheetContent side="right" className="w-full sm:max-w-md p-0 flex flex-col">
-            <SheetHeader className="p-4 border-b">
-              <div className="flex items-center justify-between">
-                <SheetTitle>Comments ({currentVideo?.commentsCount || 0})</SheetTitle>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowComments(false)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-              {/* Video Title and Info */}
-              <div className="flex items-start gap-3 mt-4 text-left">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage src={currentUploader?.avatarUrl} />
-                  <AvatarFallback>{currentUploader?.name[0]}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-sm">{currentUploader?.name}</p>
-                  <h4 className="font-bold text-base mt-1">{currentVideo?.title}</h4>
-                  <p className="text-sm text-muted-foreground mt-1">{currentVideo?.description}</p>
+        {/* Comments Overlay */}
+        {showComments && (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowComments(false)}>
+            <div
+              className="absolute right-0 top-0 bottom-0 w-full sm:w-[440px] bg-background shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header with Video Info */}
+              <div className="border-b bg-background/95 backdrop-blur">
+                <div className="flex items-center justify-between p-4 border-b">
+                  <h3 className="text-lg font-bold">Comments</h3>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setShowComments(false)}
+                    className="rounded-full hover:bg-secondary"
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                </div>
+                <div className="p-4">
+                  <div className="flex items-start gap-3">
+                    <Avatar className="h-12 w-12 border-2 border-primary/20">
+                      <AvatarImage src={currentUploader?.avatarUrl} />
+                      <AvatarFallback>{currentUploader?.name[0]}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-base">{currentUploader?.name}</p>
+                      <h4 className="font-bold text-lg mt-1 line-clamp-2">{currentVideo?.title}</h4>
+                      <p className="text-sm text-muted-foreground mt-2 line-clamp-3">{currentVideo?.description}</p>
+                      <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <Heart className="h-4 w-4" />
+                          {formatCount(currentVideo?.likes || 0)}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageCircle className="h-4 w-4" />
+                          {currentVideo?.commentsCount || 0} comments
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </SheetHeader>
-            <ScrollArea className="flex-1">
-              <div className="p-4">
-                {currentVideo && <CommentThread videoId={currentVideo.id} />}
-              </div>
-            </ScrollArea>
-          </SheetContent>
-        </Sheet>
+
+              {/* Comments List */}
+              <ScrollArea className="flex-1 bg-background">
+                <div className="p-4">
+                  {currentVideo && <CommentThread videoId={currentVideo.id} />}
+                </div>
+              </ScrollArea>
+            </div>
+          </div>
+        )}
     </div>
   )
 }

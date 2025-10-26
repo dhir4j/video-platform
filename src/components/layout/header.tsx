@@ -2,7 +2,7 @@
 "use client"
 
 import Link from "next/link";
-import { Search, User as UserIcon, MessageSquare, Rss, PlusSquare, Clapperboard, Upload, Gem } from "lucide-react";
+import { Search, User as UserIcon, MessageSquare, Rss, PlusSquare, Clapperboard } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -42,16 +42,6 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant="outline" className="rounded-full hidden md:inline-flex">
-          <Upload className="mr-2 h-4 w-4" />
-          Upload
-        </Button>
-        <Link href="/subscribe" className="hidden md:inline-flex">
-          <Button className="rounded-full">
-            <Gem className="mr-2 h-4 w-4" />
-            Premium
-          </Button>
-        </Link>
         <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
