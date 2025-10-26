@@ -12,9 +12,12 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Heart, MessageCircle, Share2, MoreVertical, Volume2, VolumeX } from 'lucide-react';
+import { Heart, MessageCircle, Share2, MoreVertical, Volume2, VolumeX, X } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { getUser } from "@/lib/data";
+import { getUser, getComments } from "@/lib/data";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { CommentThread } from "../comments/comment-thread";
 
 interface ShortsPlayerProps {
     videos: Video[];
@@ -25,8 +28,11 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
   const [api, setApi] = React.useState<CarouselApi>()
   const [isMuted, setIsMuted] = React.useState(true);
   const [currentIndex, setCurrentIndex] = React.useState(startIndex);
+  const [showDescription, setShowDescription] = React.useState(false);
+  const [showComments, setShowComments] = React.useState(false);
   const videoRefs = React.useRef<Map<string, HTMLVideoElement>>(new Map());
   const router = useRouter();
+  const isScrolling = React.useRef(false);
 
   React.useEffect(() => {
     if (!api) return;
@@ -39,6 +45,8 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
       if (videos.length === 0) return;
       const selectedIndex = api.selectedScrollSnap();
       setCurrentIndex(selectedIndex);
+      setShowDescription(false);
+      setShowComments(false);
       const selectedVideoId = videos[selectedIndex].id;
       window.history.replaceState(null, '', `/shorts/${selectedVideoId}`);
 
@@ -70,6 +78,35 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
     }
   }, [videos, currentIndex]);
 
+  // Mouse wheel navigation
+  const handleWheel = React.useCallback((event: WheelEvent) => {
+    if (!api || isScrolling.current) return;
+
+    event.preventDefault();
+
+    if (Math.abs(event.deltaY) > 30) {
+      isScrolling.current = true;
+
+      if (event.deltaY > 0) {
+        api.scrollNext();
+      } else {
+        api.scrollPrev();
+      }
+
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 800);
+    }
+  }, [api]);
+
+  React.useEffect(() => {
+    const container = document.getElementById('shorts-container');
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+      return () => container.removeEventListener('wheel', handleWheel);
+    }
+  }, [handleWheel]);
+
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === 'ArrowUp') {
@@ -99,9 +136,23 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
     return count.toString();
   };
 
+  const handleVideoClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowDescription(!showDescription);
+  };
+
+  const handleCommentsClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowComments(true);
+  };
+
+  const currentVideo = videos[currentIndex];
+  const currentUploader = getUser(currentVideo?.uploaderId);
+
   return (
     <div
-        className="w-full h-full focus:outline-none"
+        id="shorts-container"
+        className="w-full h-full focus:outline-none relative"
         onKeyDownCapture={handleKeyDown}
         tabIndex={0}
         ref={(el) => el?.focus()}
@@ -118,14 +169,15 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 dragFree: false,
             }}
         >
-          <CarouselContent className="h-screen -mt-0">
+          <CarouselContent className="h-[calc(100vh-4rem)] md:h-screen -mt-0">
               {videos.map((video, index) => {
                 const uploader = getUser(video.uploaderId);
+                const isActive = index === currentIndex;
                 return (
-                  <CarouselItem key={video.id} className="pt-0 relative h-screen min-h-screen basis-full">
+                  <CarouselItem key={video.id} className="pt-0 relative h-[calc(100vh-4rem)] md:h-screen min-h-[calc(100vh-4rem)] md:min-h-screen basis-full">
                      <div className="relative w-full h-full flex items-center justify-center bg-black">
-                        <div className="relative w-full h-full max-w-[26rem] mx-auto">
-                            {/* Video Element - Using placeholder for now */}
+                        <div className="relative w-full h-full max-w-[600px] mx-auto">
+                            {/* Video Element */}
                             <video
                                 ref={(el) => {
                                   if (el) {
@@ -134,18 +186,22 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                                 }}
                                 src={video.videoUrl || `https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4`}
                                 poster={video.thumbnailUrl}
-                                className="w-full h-full object-contain"
+                                className="w-full h-full object-contain cursor-pointer"
                                 loop
                                 muted={isMuted}
                                 playsInline
                                 preload="metadata"
+                                onClick={handleVideoClick}
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
 
                             {/* Mute/Unmute Button */}
                             <Button
-                                onClick={toggleMute}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleMute();
+                                }}
                                 variant="ghost"
                                 size="icon"
                                 className="absolute top-4 right-4 text-white hover:bg-white/20 z-20"
@@ -154,32 +210,62 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                             </Button>
 
                             {/* Video Info Overlay */}
-                            <div className="absolute bottom-20 left-4 text-white z-10 p-2 rounded-md max-w-[calc(100%-100px)]">
-                                <div className="flex items-center gap-2 mb-2">
+                            <div className="absolute bottom-4 left-4 right-20 text-white z-10">
+                                <div className="flex items-center gap-3 mb-3">
                                   <Avatar className="h-10 w-10 border-2 border-white">
                                     <AvatarImage src={uploader?.avatarUrl} />
                                     <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
                                   </Avatar>
-                                  <p className="font-semibold text-sm">{uploader?.name}</p>
+                                  <p className="font-semibold text-base">{uploader?.name}</p>
                                 </div>
-                                <h3 className="font-bold text-base line-clamp-2">{video.title}</h3>
-                                <p className="text-xs text-gray-200 mt-1 line-clamp-2">{video.description}</p>
+                                <h3 className="font-bold text-lg mb-2">{video.title}</h3>
+                                <p className={`text-sm text-gray-200 ${showDescription && isActive ? '' : 'line-clamp-2'}`}>
+                                  {video.description}
+                                </p>
+                                {!showDescription && isActive && (
+                                  <button
+                                    onClick={handleVideoClick}
+                                    className="text-sm text-gray-400 hover:text-white mt-1"
+                                  >
+                                    ...more
+                                  </button>
+                                )}
                             </div>
 
                             {/* Action Buttons Overlay */}
-                            <div className="absolute bottom-20 right-4 text-white z-10 flex flex-col items-center gap-5">
-                                <Button variant="ghost" size="icon" className="h-14 w-14 flex-col gap-0.5 text-white hover:bg-white/10 rounded-full">
+                            <div className="absolute bottom-4 right-4 text-white z-10 flex flex-col items-center gap-6">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-14 w-14 flex-col gap-1 text-white hover:bg-white/20 rounded-full"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                     <Heart className="h-7 w-7"/>
                                     <span className="text-xs font-semibold">{formatCount(video.likes)}</span>
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-14 w-14 flex-col gap-0.5 text-white hover:bg-white/10 rounded-full">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-14 w-14 flex-col gap-1 text-white hover:bg-white/20 rounded-full"
+                                  onClick={handleCommentsClick}
+                                >
                                     <MessageCircle className="h-7 w-7"/>
                                     <span className="text-xs font-semibold">{formatCount(video.commentsCount)}</span>
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-14 w-14 text-white hover:bg-white/10 rounded-full">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-14 w-14 text-white hover:bg-white/20 rounded-full"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                     <Share2 className="h-7 w-7"/>
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-14 w-14 text-white hover:bg-white/10 rounded-full">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-14 w-14 text-white hover:bg-white/20 rounded-full"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
                                     <MoreVertical className="h-7 w-7"/>
                                 </Button>
                             </div>
@@ -190,6 +276,41 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
               })}
           </CarouselContent>
         </Carousel>
+
+        {/* Comments Sheet */}
+        <Sheet open={showComments} onOpenChange={setShowComments}>
+          <SheetContent side="right" className="w-full sm:max-w-md p-0 flex flex-col">
+            <SheetHeader className="p-4 border-b">
+              <div className="flex items-center justify-between">
+                <SheetTitle>Comments ({currentVideo?.commentsCount || 0})</SheetTitle>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowComments(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+              {/* Video Title and Info */}
+              <div className="flex items-start gap-3 mt-4 text-left">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={currentUploader?.avatarUrl} />
+                  <AvatarFallback>{currentUploader?.name[0]}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm">{currentUploader?.name}</p>
+                  <h4 className="font-bold text-base mt-1">{currentVideo?.title}</h4>
+                  <p className="text-sm text-muted-foreground mt-1">{currentVideo?.description}</p>
+                </div>
+              </div>
+            </SheetHeader>
+            <ScrollArea className="flex-1">
+              <div className="p-4">
+                {currentVideo && <CommentThread videoId={currentVideo.id} />}
+              </div>
+            </ScrollArea>
+          </SheetContent>
+        </Sheet>
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { ShortsPlayer } from "@/components/video/shorts-player";
 export default function AllShortsPage() {
     const allVideos = getVideos();
     const shortVideos = allVideos.filter(v => v.type === 'short');
-    
+
     if (shortVideos.length === 0) {
         return (
             <div className="h-full flex items-center justify-center text-white">
@@ -15,7 +15,7 @@ export default function AllShortsPage() {
     }
 
     return (
-      <div className="w-full h-full">
+      <div className="w-full h-full overflow-hidden">
         <ShortsPlayer videos={shortVideos} />
       </div>
     )
