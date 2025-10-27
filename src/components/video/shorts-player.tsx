@@ -161,7 +161,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
             className="relative w-full h-full overflow-hidden"
             orientation="vertical"
             opts={{
-                align: "start",
+                align: "center",
                 loop: true,
                 startIndex: startIndex,
                 skipSnaps: false,
@@ -175,7 +175,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 return (
                   <CarouselItem key={video.id} className="pt-0 relative h-full min-h-full basis-full">
                      <div className="relative w-full h-full flex items-center justify-center bg-background">
-                        <div className="relative w-full h-full max-w-[600px] mx-auto">
+                        <div className="relative w-full h-full max-w-[450px] mx-auto">
                             {/* Video Element */}
                             <video
                                 ref={(el) => {
@@ -183,8 +183,8 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                                     videoRefs.current.set(video.id, el);
                                   }
                                 }}
-                                src={video.videoUrl || `https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4`}
-                                poster={video.thumbnailUrl}
+                                src={video.videoUrl || `https://images.pexels.com/videos/4678261/pexels-photo-4678261.jpeg`}
+                                poster={video.thumbnailUrl || `https://images.pexels.com/videos/4678261/pexels-photo-4678261.jpeg`}
                                 className="w-full h-full object-cover cursor-pointer"
                                 loop
                                 muted={isMuted}
