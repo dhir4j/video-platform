@@ -168,14 +168,14 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 dragFree: false,
             }}
         >
-          <CarouselContent className="h-[calc(100vh-4rem)] md:h-screen -mt-0">
+          <CarouselContent className="h-full -mt-0">
               {videos.map((video, index) => {
                 const uploader = getUser(video.uploaderId);
                 const isActive = index === currentIndex;
                 return (
-                  <CarouselItem key={video.id} className="pt-0 relative h-[calc(100vh-4rem)] md:h-screen min-h-[calc(100vh-4rem)] md:min-h-screen basis-full">
-                     <div className="relative w-full h-full flex items-center justify-center bg-black">
-                        <div className="relative w-full h-full max-w-[400px] mx-auto">
+                  <CarouselItem key={video.id} className="pt-0 relative h-full min-h-full basis-full">
+                     <div className="relative w-full h-full flex items-center justify-center bg-background">
+                        <div className="relative w-full h-full max-w-[600px] mx-auto">
                             {/* Video Element */}
                             <video
                                 ref={(el) => {
@@ -185,7 +185,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                                 }}
                                 src={video.videoUrl || `https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4`}
                                 poster={video.thumbnailUrl}
-                                className="w-full h-full object-contain cursor-pointer"
+                                className="w-full h-full object-cover cursor-pointer"
                                 loop
                                 muted={isMuted}
                                 playsInline
