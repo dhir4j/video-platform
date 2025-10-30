@@ -77,14 +77,16 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
     }
   }, [videos, currentIndex]);
 
-  // Mouse wheel navigation
+  // Mouse wheel and touch navigation
   const handleWheel = React.useCallback((event: WheelEvent) => {
-    if (!api || isScrolling.current || showComments || showDescription) return;
+    if (!api || isScrolling.current || showComments) return;
 
     event.preventDefault();
     event.stopPropagation();
 
-    if (Math.abs(event.deltaY) > 20) {
+    const delta = Math.abs(event.deltaY);
+
+    if (delta > 10) {
       isScrolling.current = true;
 
       if (event.deltaY > 0) {
@@ -95,9 +97,9 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
 
       setTimeout(() => {
         isScrolling.current = false;
-      }, 600);
+      }, 500);
     }
-  }, [api, showComments, showDescription]);
+  }, [api, showComments]);
 
   React.useEffect(() => {
     const container = document.getElementById('shorts-container');
@@ -171,6 +173,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 startIndex: startIndex,
                 skipSnaps: false,
                 dragFree: false,
+                watchDrag: true,
             }}
         >
           <CarouselContent className="h-full -mt-0">
@@ -281,23 +284,35 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
           </CarouselContent>
         </Carousel>
 
-        {/* Comments Overlay - Instagram Style */}
+        {/* Comments Bottom Sheet - YouTube Shorts Style */}
         {showComments && (
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowComments(false)}>
+          <>
+            {/* Backdrop with blur on video */}
+            <div className="fixed inset-0 z-40 bg-black/40" onClick={() => setShowComments(false)}>
+              <div className="absolute inset-0 backdrop-blur-[2px]" />
+            </div>
+
+            {/* Bottom Sheet */}
             <div
-              className="absolute right-0 top-0 bottom-0 w-full sm:w-[400px] bg-background shadow-2xl flex flex-col"
+              className="fixed bottom-0 left-0 right-0 z-50 bg-background rounded-t-2xl shadow-2xl flex flex-col animate-in slide-in-from-bottom duration-300"
+              style={{ height: 'calc(60vh)', maxHeight: '600px' }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Drag Handle */}
+              <div className="flex items-center justify-center py-3 border-b">
+                <div className="w-10 h-1 bg-muted-foreground/30 rounded-full"></div>
+              </div>
+
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b bg-background">
-                <h3 className="text-base font-semibold">Comments</h3>
+              <div className="flex items-center justify-between px-4 py-2 border-b">
+                <h3 className="text-sm font-semibold">Comments {currentVideo?.commentsCount ? `(${currentVideo.commentsCount})` : ''}</h3>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setShowComments(false)}
-                  className="h-8 w-8 rounded-full hover:bg-secondary"
+                  className="h-7 w-7 rounded-full hover:bg-secondary"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-3.5 w-3.5" />
                 </Button>
               </div>
 
@@ -326,7 +341,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </>
         )}
     </div>
   )

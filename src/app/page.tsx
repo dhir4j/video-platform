@@ -40,10 +40,10 @@ export default function HomePage() {
       </div>
 
       <section>
-        <div className={`grid gap-x-6 gap-y-8 ${
+        <div className={`grid gap-x-4 gap-y-6 ${
           layoutMode === 'single'
             ? 'grid-cols-1'
-            : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'
+            : 'grid-cols-2 lg:grid-cols-3'
         }`}>
           {longVideos.map((video) => (
             <VideoCard key={video.id} video={video} />
