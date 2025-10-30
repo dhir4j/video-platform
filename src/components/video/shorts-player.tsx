@@ -12,7 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Heart, MessageCircle, Share2, MoreVertical, Volume2, VolumeX, X } from 'lucide-react';
+import { Heart, MessageCircle, Send, BookmarkPlus, Volume2, VolumeX, X, Play, Pause } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { getUser } from "@/lib/data";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -77,19 +77,44 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
     }
   }, [videos, currentIndex]);
 
-  // Mouse wheel and touch navigation
-  const handleWheel = React.useCallback((event: WheelEvent) => {
+  // Touch and wheel navigation
+  const touchStartY = React.useRef<number>(0);
+  const touchEndY = React.useRef<number>(0);
+
+  const handleTouchStart = React.useCallback((e: TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchMove = React.useCallback((e: TouchEvent) => {
+    touchEndY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = React.useCallback(() => {
+    if (!api || showComments) return;
+
+    const deltaY = touchStartY.current - touchEndY.current;
+    const threshold = 50; // minimum swipe distance
+
+    if (Math.abs(deltaY) > threshold) {
+      if (deltaY > 0) {
+        // Swiped up - next video
+        api.scrollNext();
+      } else {
+        // Swiped down - previous video
+        api.scrollPrev();
+      }
+    }
+  }, [api, showComments]);
+
+  const handleWheel = React.useCallback((e: WheelEvent) => {
     if (!api || isScrolling.current || showComments) return;
 
-    event.preventDefault();
-    event.stopPropagation();
+    e.preventDefault();
 
-    const delta = Math.abs(event.deltaY);
-
-    if (delta > 10) {
+    if (Math.abs(e.deltaY) > 30) {
       isScrolling.current = true;
 
-      if (event.deltaY > 0) {
+      if (e.deltaY > 0) {
         api.scrollNext();
       } else {
         api.scrollPrev();
@@ -97,7 +122,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
 
       setTimeout(() => {
         isScrolling.current = false;
-      }, 500);
+      }, 800);
     }
   }, [api, showComments]);
 
@@ -105,16 +130,22 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
     const container = document.getElementById('shorts-container');
     if (!container) return;
 
-    const wheelHandler = (e: WheelEvent) => handleWheel(e);
-    container.addEventListener('wheel', wheelHandler, { passive: false });
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
 
     return () => {
-      container.removeEventListener('wheel', wheelHandler);
+      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [handleWheel]);
+  }, [handleWheel, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   const handleKeyDown = React.useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (showComments) return;
       if (event.key === 'ArrowUp') {
         event.preventDefault();
         api?.scrollPrev();
@@ -123,7 +154,7 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
         api?.scrollNext();
       }
     },
-    [api]
+    [api, showComments]
   );
 
   const toggleMute = () => {
@@ -171,9 +202,9 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 align: "center",
                 loop: true,
                 startIndex: startIndex,
-                skipSnaps: false,
+                skipSnaps: true,
                 dragFree: false,
-                watchDrag: true,
+                watchDrag: false,
             }}
         >
           <CarouselContent className="h-full -mt-0">
@@ -182,44 +213,149 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                 const isActive = index === currentIndex;
                 return (
                   <CarouselItem key={video.id} className="pt-0 relative h-full min-h-full basis-full">
-                     <div className="relative w-full h-full flex items-center justify-center bg-background">
-                        <div className="relative w-full h-full max-w-[450px] mx-auto">
-                            {/* Video Element */}
-                            <video
-                                ref={(el) => {
-                                  if (el) {
-                                    videoRefs.current.set(video.id, el);
-                                  }
-                                }}
-                                src={video.videoUrl || `https://images.pexels.com/videos/4678261/pexels-photo-4678261.jpeg`}
-                                poster={video.thumbnailUrl || `https://images.pexels.com/videos/4678261/pexels-photo-4678261.jpeg`}
-                                className="w-full h-full object-cover cursor-pointer"
-                                loop
-                                muted={isMuted}
-                                playsInline
-                                preload="metadata"
-                                onClick={handleVideoClick}
-                            />
+                     <div className="relative w-full h-full flex items-center justify-center bg-black">
+                        {/* Main Content Container */}
+                        <div className="flex items-center justify-center w-full h-full max-w-7xl mx-auto px-0 lg:px-20">
+                            {/* Video Container */}
+                            <div className="relative w-full h-full max-w-[450px] lg:max-w-[500px]">
+                                {/* Video Element */}
+                                <video
+                                    ref={(el) => {
+                                      if (el) {
+                                        videoRefs.current.set(video.id, el);
+                                      }
+                                    }}
+                                    src={video.videoUrl || `https://images.pexels.com/videos/4678261/pexels-photo-4678261.jpeg`}
+                                    poster={video.thumbnailUrl || `https://images.pexels.com/videos/4678261/pexels-photo-4678261.jpeg`}
+                                    className="w-full h-full object-cover cursor-pointer rounded-lg lg:rounded-xl"
+                                    loop
+                                    muted={isMuted}
+                                    playsInline
+                                    preload="metadata"
+                                    onClick={handleVideoClick}
+                                />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none rounded-lg lg:rounded-xl"></div>
 
-                            {/* Mute/Unmute Button */}
-                            <Button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  toggleMute();
-                                }}
-                                variant="ghost"
-                                size="icon"
-                                className="absolute top-4 right-4 text-white hover:bg-white/20 z-20"
-                            >
-                                {isMuted ? <VolumeX className="h-6 w-6" /> : <Volume2 className="h-6 w-6" />}
-                            </Button>
+                                {/* Mute/Unmute Button */}
+                                <Button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      toggleMute();
+                                    }}
+                                    variant="ghost"
+                                    size="icon"
+                                    className="absolute top-4 right-4 text-white hover:bg-white/20 z-20 rounded-full backdrop-blur-sm bg-black/20 transition-all duration-200 hover:scale-110"
+                                >
+                                    {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                                </Button>
 
-                            {/* Video Info Overlay */}
-                            <div className="absolute bottom-4 left-4 right-20 text-white z-10">
+                                {/* Video Info Overlay - Mobile */}
+                                <div className="lg:hidden absolute bottom-4 left-4 right-20 text-white z-10">
+                                    <div className="flex items-center gap-3 mb-3">
+                                      <Avatar className="h-9 w-9 border-2 border-white ring-2 ring-black/20">
+                                        <AvatarImage src={uploader?.avatarUrl} />
+                                        <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+                                      </Avatar>
+                                      <p className="font-semibold text-sm">{uploader?.name}</p>
+                                    </div>
+                                    <h3 className="font-bold text-base mb-1.5">{video.title}</h3>
+                                    <p className={`text-xs text-gray-200 ${showDescription && isActive ? '' : 'line-clamp-2'}`}>
+                                      {video.description}
+                                    </p>
+                                    {!showDescription && isActive && (
+                                      <button
+                                        onClick={handleVideoClick}
+                                        className="text-xs text-gray-400 hover:text-white mt-1"
+                                      >
+                                        ...more
+                                      </button>
+                                    )}
+                                </div>
+
+                                {/* Action Buttons - Mobile (Inside) */}
+                                <div className="lg:hidden absolute bottom-4 right-3 text-white z-10 flex flex-col items-center gap-5">
+                                    <button
+                                      className="flex flex-col items-center gap-1 group transition-transform hover:scale-110"
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <div className="rounded-full bg-white/10 backdrop-blur-sm p-2.5 group-hover:bg-white/20 transition-all">
+                                            <Heart className="h-6 w-6 fill-white" />
+                                        </div>
+                                        <span className="text-xs font-semibold">{formatCount(video.likes)}</span>
+                                    </button>
+                                    <button
+                                      className="flex flex-col items-center gap-1 group transition-transform hover:scale-110"
+                                      onClick={handleCommentsClick}
+                                    >
+                                        <div className="rounded-full bg-white/10 backdrop-blur-sm p-2.5 group-hover:bg-white/20 transition-all">
+                                            <MessageCircle className="h-6 w-6" />
+                                        </div>
+                                        <span className="text-xs font-semibold">{formatCount(video.commentsCount)}</span>
+                                    </button>
+                                    <button
+                                      className="flex flex-col items-center gap-1 group transition-transform hover:scale-110"
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <div className="rounded-full bg-white/10 backdrop-blur-sm p-2.5 group-hover:bg-white/20 transition-all">
+                                            <Send className="h-6 w-6" />
+                                        </div>
+                                    </button>
+                                    <button
+                                      className="flex flex-col items-center gap-1 group transition-transform hover:scale-110"
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <div className="rounded-full bg-white/10 backdrop-blur-sm p-2.5 group-hover:bg-white/20 transition-all">
+                                            <BookmarkPlus className="h-6 w-6" />
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Action Buttons - Desktop (Outside, Right Side) */}
+                            <div className="hidden lg:flex flex-col items-center gap-6 ml-8 text-white">
+                                <button
+                                  className="flex flex-col items-center gap-2 group transition-all hover:scale-105"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                    <div className="rounded-full bg-white/10 backdrop-blur-md p-3.5 group-hover:bg-white/20 transition-all shadow-lg">
+                                        <Heart className="h-7 w-7 fill-white stroke-white" />
+                                    </div>
+                                    <span className="text-sm font-semibold">{formatCount(video.likes)}</span>
+                                </button>
+                                <button
+                                  className="flex flex-col items-center gap-2 group transition-all hover:scale-105"
+                                  onClick={handleCommentsClick}
+                                >
+                                    <div className="rounded-full bg-white/10 backdrop-blur-md p-3.5 group-hover:bg-white/20 transition-all shadow-lg">
+                                        <MessageCircle className="h-7 w-7" />
+                                    </div>
+                                    <span className="text-sm font-semibold">{formatCount(video.commentsCount)}</span>
+                                </button>
+                                <button
+                                  className="flex flex-col items-center gap-2 group transition-all hover:scale-105"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                    <div className="rounded-full bg-white/10 backdrop-blur-md p-3.5 group-hover:bg-white/20 transition-all shadow-lg">
+                                        <Send className="h-7 w-7" />
+                                    </div>
+                                    <span className="text-sm font-medium">Share</span>
+                                </button>
+                                <button
+                                  className="flex flex-col items-center gap-2 group transition-all hover:scale-105"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                    <div className="rounded-full bg-white/10 backdrop-blur-md p-3.5 group-hover:bg-white/20 transition-all shadow-lg">
+                                        <BookmarkPlus className="h-7 w-7" />
+                                    </div>
+                                    <span className="text-sm font-medium">Save</span>
+                                </button>
+                            </div>
+
+                            {/* Video Info - Desktop (Below video) */}
+                            <div className="hidden lg:block absolute bottom-4 left-4 right-4 text-white z-10" style={{ maxWidth: '500px' }}>
                                 <div className="flex items-center gap-3 mb-3">
-                                  <Avatar className="h-10 w-10 border-2 border-white">
+                                  <Avatar className="h-11 w-11 border-2 border-white ring-2 ring-black/20">
                                     <AvatarImage src={uploader?.avatarUrl} />
                                     <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
                                   </Avatar>
@@ -237,44 +373,6 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
                                     ...more
                                   </button>
                                 )}
-                            </div>
-
-                            {/* Action Buttons Overlay */}
-                            <div className="absolute bottom-4 right-4 text-white z-10 flex flex-col items-center gap-6">
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-14 w-14 flex-col gap-1 text-white hover:bg-white/20 rounded-full"
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                    <Heart className="h-7 w-7"/>
-                                    <span className="text-xs font-semibold">{formatCount(video.likes)}</span>
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-14 w-14 flex-col gap-1 text-white hover:bg-white/20 rounded-full"
-                                  onClick={handleCommentsClick}
-                                >
-                                    <MessageCircle className="h-7 w-7"/>
-                                    <span className="text-xs font-semibold">{formatCount(video.commentsCount)}</span>
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-14 w-14 text-white hover:bg-white/20 rounded-full"
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                    <Share2 className="h-7 w-7"/>
-                                </Button>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  className="h-14 w-14 text-white hover:bg-white/20 rounded-full"
-                                  onClick={(e) => e.stopPropagation()}
-                                >
-                                    <MoreVertical className="h-7 w-7"/>
-                                </Button>
                             </div>
                         </div>
                     </div>
