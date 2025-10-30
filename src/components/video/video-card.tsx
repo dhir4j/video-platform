@@ -23,9 +23,10 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 interface VideoCardProps {
   video: Video;
   orientation?: 'vertical' | 'horizontal';
+  showStats?: boolean; // For profile page - shows only views by default, likes/comments on hover
 }
 
-export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps) {
+export function VideoCard({ video, orientation = 'horizontal', showStats = false }: VideoCardProps) {
   const uploader = getUser(video.uploaderId);
   const linkHref = video.type === 'short' ? `/shorts/${video.id}` : `/watch/${video.id}`;
   const isVertical = orientation === 'vertical';
@@ -98,7 +99,7 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
         className={cn(
           "overflow-hidden h-full transition-all duration-300 bg-card",
           "flex flex-col",
-          "rounded-xl border border-transparent group-hover:border-primary/30 group-hover:shadow-xl group-hover:shadow-primary/5"
+          "rounded-lg border border-transparent group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/10"
         )}
       >
         <CardContent className="p-0 flex-1 flex flex-col">
@@ -109,41 +110,48 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
                 width={isVertical ? 360 : 640}
                 height={isVertical ? 640 : 360}
                 className={cn(
-                  "object-cover w-full transition-all duration-300 group-hover:scale-[1.02] rounded-t-xl",
-                  isVertical ? "aspect-[9/16] rounded-b-xl" : "aspect-video",
+                  "object-cover w-full transition-transform duration-300 group-hover:scale-105 rounded-t-lg",
+                  isVertical ? "aspect-[9/16] rounded-b-lg" : "aspect-video",
                   isFullscreen ? "object-contain h-screen rounded-none" : ""
                 )}
                 data-ai-hint={video.type === 'short' ? 'portrait model' : 'abstract neon'}
               />
-
-              {/* Default Overlay - Views Only */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent group-hover:from-black/80 transition-all duration-300 rounded-t-xl">
-                <div className="absolute bottom-2 left-2 text-white text-xs font-medium flex items-center gap-1.5 opacity-100 group-hover:opacity-0 transition-opacity duration-200">
-                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  <span>{video.likes.toLocaleString()}</span>
-                </div>
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center rounded-t-lg">
+                 <PlayCircle className="w-12 h-12 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100" />
               </div>
 
-              {/* Hover Overlay - Likes & Comments (Instagram style) */}
-              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-6 rounded-t-xl">
-                 <div className="flex items-center gap-2 text-white font-semibold">
-                   <Heart className="w-5 h-5 fill-white" />
-                   <span>{video.likes.toLocaleString()}</span>
-                 </div>
-                 <div className="flex items-center gap-2 text-white font-semibold">
-                   <MessageCircle className="w-5 h-5 fill-white" />
-                   <span>{video.commentsCount}</span>
-                 </div>
-              </div>
-
-              <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs font-semibold px-1.5 py-0.5 rounded-md backdrop-blur-sm">
+              <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs font-semibold px-1.5 py-0.5 rounded-md">
                   1:23
               </div>
               
-              {isVertical ? (
+              {isVertical && showStats && (
+                <>
+                  {/* Default Overlay - Views Only (Instagram Profile Style) */}
+                  <div className="absolute inset-0 bg-transparent group-hover:bg-transparent transition-all duration-300 rounded-b-lg pointer-events-none">
+                    <div className="absolute bottom-2 left-2 text-white text-sm font-medium flex items-center gap-1.5 opacity-100 group-hover:opacity-0 transition-opacity duration-200">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                      <span>{video.likes.toLocaleString()}</span>
+                    </div>
+                  </div>
+
+                  {/* Hover Overlay - Likes & Comments (Instagram style) */}
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-6 rounded-b-lg">
+                     <div className="flex items-center gap-2 text-white font-semibold">
+                       <Heart className="w-6 h-6 fill-white" />
+                       <span className="text-lg">{video.likes.toLocaleString()}</span>
+                     </div>
+                     <div className="flex items-center gap-2 text-white font-semibold">
+                       <MessageCircle className="w-6 h-6 fill-white" />
+                       <span className="text-lg">{video.commentsCount}</span>
+                     </div>
+                  </div>
+                </>
+              )}
+
+              {isVertical && !showStats && (
                 <>
                   <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent rounded-b-lg">
                     <h3 className="font-semibold text-base leading-tight truncate text-white group-hover:text-primary transition-colors">{video.title}</h3>
@@ -184,9 +192,20 @@ export function VideoCard({ video, orientation = 'horizontal' }: VideoCardProps)
             </div>
             
             {!isVertical && (
-              <div className="p-3">
-                <h3 className="font-semibold text-sm leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1.5">{video.title}</h3>
-                <p className="text-xs text-muted-foreground truncate">{uploader?.name}</p>
+              <div className="flex gap-3 p-3">
+                  <Avatar className="h-10 w-10 shrink-0 mt-0.5">
+                  <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
+                  <AvatarFallback>{uploader?.name[0]}</AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                    <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{video.title}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 truncate">{uploader?.name}</p>
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-0.5">
+                      <span>{video.likes.toLocaleString()} views</span>
+                      <span>•</span>
+                      <span>{formatDistanceToNow(new Date(video.createdAt), { addSuffix: true })}</span>
+                    </div>
+                </div>
               </div>
             )}
         </CardContent>

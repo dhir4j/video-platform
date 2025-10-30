@@ -69,14 +69,14 @@ export default function ProfilePage() {
         <TabsContent value="videos">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-4">
             {userVideos.map((video) => (
-              <VideoCard key={video.id} video={video} orientation="vertical" />
+              <VideoCard key={video.id} video={video} orientation="vertical" showStats={true} />
             ))}
           </div>
         </TabsContent>
         <TabsContent value="liked">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 pt-4">
             {likedVideos.map((video) => (
-              <VideoCard key={video.id} video={video} orientation="vertical" />
+              <VideoCard key={video.id} video={video} orientation="vertical" showStats={true} />
             ))}
           </div>
         </TabsContent>
