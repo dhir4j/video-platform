@@ -69,14 +69,14 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
       </div>
 
       {/* Video Info Card */}
-      <div className="rounded-xl border bg-card/50 backdrop-blur-sm shadow-lg p-5 space-y-4">
+      <div className="rounded-xl border bg-card/50 backdrop-blur-sm shadow-lg p-3 md:p-5 space-y-3 md:space-y-4">
         {/* Title */}
-        <h1 className="text-3xl font-bold tracking-tight leading-tight">{video.title}</h1>
+        <h1 className="text-lg md:text-3xl font-bold tracking-tight leading-tight">{video.title}</h1>
 
         {/* Stats and Actions */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b">
-          <div className="flex items-center gap-3 text-sm">
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary font-semibold">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 md:gap-4 pb-3 md:pb-4 border-b">
+          <div className="flex items-center gap-2 md:gap-3 text-xs md:text-sm">
+            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-primary/10 text-primary font-semibold">
               {video.likes.toLocaleString()} views
             </span>
             <span className="text-muted-foreground">
@@ -84,22 +84,22 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
-            <Button variant="outline" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary">
-              <ThumbsUp className="mr-2 h-4 w-4" />
+          <div className="flex items-center gap-1.5 md:gap-2 flex-wrap">
+            <Button variant="outline" size="sm" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary text-xs md:text-sm h-8 md:h-9">
+              <ThumbsUp className="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4" />
               {video.likes.toLocaleString()}
             </Button>
-            <Button variant="outline" size="icon" className="rounded-full hover:bg-destructive/10 hover:text-destructive hover:border-destructive">
-              <ThumbsDown className="h-4 w-4" />
+            <Button variant="outline" size="sm" className="rounded-full hover:bg-destructive/10 hover:text-destructive hover:border-destructive h-8 md:h-9 w-8 md:w-9">
+              <ThumbsDown className="h-3 w-3 md:h-4 md:w-4" />
             </Button>
-            <Button variant="outline" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary">
-              <Share2 className="mr-2 h-4 w-4" />
+            <Button variant="outline" size="sm" className="rounded-full hover:bg-primary/10 hover:text-primary hover:border-primary text-xs md:text-sm h-8 md:h-9">
+              <Share2 className="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4" />
               Share
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="rounded-full">
-                  <MoreVertical className="h-4 w-4" />
+                <Button variant="outline" size="sm" className="rounded-full h-8 md:h-9 w-8 md:w-9">
+                  <MoreVertical className="h-3 w-3 md:h-4 md:w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -113,48 +113,48 @@ export function LongVideoPlayer({ video, uploader }: LongVideoPlayerProps) {
         </div>
 
         {/* Channel Info */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-          <div className="flex items-center gap-4">
-            <Avatar className="h-14 w-14 ring-2 ring-primary/20">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 md:gap-4 pt-1 md:pt-2">
+          <div className="flex items-center gap-2 md:gap-4">
+            <Avatar className="h-10 w-10 md:h-14 md:w-14 ring-2 ring-primary/20">
               <AvatarImage src={uploader?.avatarUrl} alt={uploader?.name} />
               <AvatarFallback className="bg-primary/10 text-primary font-semibold">
                 {uploader?.name[0]}
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-bold text-lg">{uploader?.name}</p>
-              <p className="text-sm text-muted-foreground flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
+              <p className="font-bold text-sm md:text-lg">{uploader?.name}</p>
+              <p className="text-xs md:text-sm text-muted-foreground flex items-center gap-1">
+                <span className="h-1 w-1 md:h-1.5 md:w-1.5 rounded-full bg-primary"></span>
                 1.2M Subscribers
               </p>
             </div>
           </div>
-          <Button className="rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
-            <Rss className="mr-2 h-4 w-4" />
+          <Button className="rounded-full px-4 md:px-8 text-xs md:text-sm h-8 md:h-10 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
+            <Rss className="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4" />
             Subscribe
           </Button>
         </div>
       </div>
 
       {/* Description Card */}
-      <div className="rounded-xl border bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm shadow-lg p-5 space-y-4">
-        <h3 className="font-bold text-lg flex items-center gap-2">
-          <span className="h-1 w-1 rounded-full bg-primary"></span>
+      <div className="rounded-xl border bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-sm shadow-lg p-3 md:p-5 space-y-3 md:space-y-4">
+        <h3 className="font-bold text-sm md:text-lg flex items-center gap-2">
+          <span className="h-0.5 w-0.5 md:h-1 md:w-1 rounded-full bg-primary"></span>
           About this video
         </h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">{video.description}</p>
+        <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{video.description}</p>
 
         {video.tags.length > 0 && (
-          <div className="pt-4 border-t">
-            <h4 className="font-semibold text-sm mb-3 text-muted-foreground uppercase tracking-wide">
+          <div className="pt-3 md:pt-4 border-t">
+            <h4 className="font-semibold text-xs md:text-sm mb-2 md:mb-3 text-muted-foreground uppercase tracking-wide">
               Tags
             </h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 md:gap-2">
               {video.tags.map(tag => (
                 <Badge
                   key={tag}
                   variant="secondary"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all rounded-full px-3 py-1 text-xs font-medium"
+                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-all rounded-full px-2 md:px-3 py-0.5 md:py-1 text-xs font-medium"
                 >
                   #{tag}
                 </Badge>

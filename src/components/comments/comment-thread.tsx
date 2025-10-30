@@ -13,13 +13,32 @@ import {
 } from "@/components/ui/select"
 import { Send } from 'lucide-react';
 
-export function CommentThread({ videoId }: { videoId: string }) {
+export function CommentThread({ videoId, isShorts = false }: { videoId: string; isShorts?: boolean }) {
   const allComments = getComments(videoId);
   const rootComments = allComments.filter(comment => comment.parentId === null);
 
   const getReplies = (commentId: string) => {
     return allComments.filter(comment => comment.parentId === commentId);
   };
+
+  if (isShorts) {
+    return (
+      <div className="space-y-4">
+        {rootComments.map(comment => (
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            replies={getReplies(comment.id)}
+            getReplies={getReplies}
+            isShorts
+          />
+        ))}
+        {rootComments.length === 0 && (
+          <p className="text-sm text-muted-foreground text-center py-8">No comments yet. Be the first to comment!</p>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">

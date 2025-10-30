@@ -79,11 +79,12 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
 
   // Mouse wheel navigation
   const handleWheel = React.useCallback((event: WheelEvent) => {
-    if (!api || isScrolling.current) return;
+    if (!api || isScrolling.current || showComments || showDescription) return;
 
     event.preventDefault();
+    event.stopPropagation();
 
-    if (Math.abs(event.deltaY) > 30) {
+    if (Math.abs(event.deltaY) > 20) {
       isScrolling.current = true;
 
       if (event.deltaY > 0) {
@@ -94,16 +95,20 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
 
       setTimeout(() => {
         isScrolling.current = false;
-      }, 800);
+      }, 600);
     }
-  }, [api]);
+  }, [api, showComments, showDescription]);
 
   React.useEffect(() => {
     const container = document.getElementById('shorts-container');
-    if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-      return () => container.removeEventListener('wheel', handleWheel);
-    }
+    if (!container) return;
+
+    const wheelHandler = (e: WheelEvent) => handleWheel(e);
+    container.addEventListener('wheel', wheelHandler, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', wheelHandler);
+    };
   }, [handleWheel]);
 
   const handleKeyDown = React.useCallback(
@@ -276,57 +281,50 @@ export function ShortsPlayer({ videos, startIndex = 0 }: ShortsPlayerProps) {
           </CarouselContent>
         </Carousel>
 
-        {/* Comments Overlay */}
+        {/* Comments Overlay - Instagram Style */}
         {showComments && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowComments(false)}>
             <div
-              className="absolute right-0 top-0 bottom-0 w-full sm:w-[440px] bg-background shadow-2xl flex flex-col"
+              className="absolute right-0 top-0 bottom-0 w-full sm:w-[400px] bg-background shadow-2xl flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header with Video Info */}
-              <div className="border-b bg-background/95 backdrop-blur">
-                <div className="flex items-center justify-between p-4 border-b">
-                  <h3 className="text-lg font-bold">Comments</h3>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setShowComments(false)}
-                    className="rounded-full hover:bg-secondary"
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
-                </div>
-                <div className="p-4">
-                  <div className="flex items-start gap-3">
-                    <Avatar className="h-12 w-12 border-2 border-primary/20">
-                      <AvatarImage src={currentUploader?.avatarUrl} />
-                      <AvatarFallback>{currentUploader?.name[0]}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-base">{currentUploader?.name}</p>
-                      <h4 className="font-bold text-lg mt-1 line-clamp-2">{currentVideo?.title}</h4>
-                      <p className="text-sm text-muted-foreground mt-2 line-clamp-3">{currentVideo?.description}</p>
-                      <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Heart className="h-4 w-4" />
-                          {formatCount(currentVideo?.likes || 0)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MessageCircle className="h-4 w-4" />
-                          {currentVideo?.commentsCount || 0} comments
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b bg-background">
+                <h3 className="text-base font-semibold">Comments</h3>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShowComments(false)}
+                  className="h-8 w-8 rounded-full hover:bg-secondary"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
               </div>
 
               {/* Comments List */}
               <ScrollArea className="flex-1 bg-background">
-                <div className="p-4">
-                  {currentVideo && <CommentThread videoId={currentVideo.id} />}
+                <div className="px-4 py-3">
+                  {currentVideo && <CommentThread videoId={currentVideo.id} isShorts />}
                 </div>
               </ScrollArea>
+
+              {/* Comment Input - Fixed at bottom */}
+              <div className="border-t bg-background px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-8 w-8 shrink-0">
+                    <AvatarImage src={currentUploader?.avatarUrl} />
+                    <AvatarFallback>{currentUploader?.name[0]}</AvatarFallback>
+                  </Avatar>
+                  <input
+                    type="text"
+                    placeholder="Add a comment..."
+                    className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  />
+                  <button className="text-xs font-semibold text-muted-foreground">
+                    😊
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}

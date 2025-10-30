@@ -56,7 +56,7 @@ export function RelatedVideos({ videos, compact = false }: RelatedVideosProps) {
         <h2 className="text-xl font-bold">More Videos You Might Like</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         {videos.map((video) => {
           const uploader = getUser(video.uploaderId);
           const linkHref = video.type === 'short' ? `/shorts/${video.id}` : `/watch/${video.id}`;

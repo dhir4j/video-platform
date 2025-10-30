@@ -17,10 +17,10 @@ export default function WatchPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
-      <div className="container mx-auto px-4 py-6 max-w-7xl">
-        <div className="flex flex-col lg:flex-row gap-6">
+      <div className="container mx-auto px-2 md:px-4 py-3 md:py-6 max-w-7xl">
+        <div className="flex flex-col lg:flex-row gap-3 md:gap-6">
           {/* Main Content */}
-          <div className="w-full lg:w-[70%] space-y-6">
+          <div className="w-full lg:w-[70%] space-y-3 md:space-y-6">
             <LongVideoPlayer video={video} uploader={uploader} />
 
             {/* Comments Section with Dropdown */}
