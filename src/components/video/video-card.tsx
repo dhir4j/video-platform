@@ -188,7 +188,7 @@ export function VideoCard({ video, orientation = 'horizontal', showStats = false
                     </div>
                   )}
                 </>
-              ) : null}
+              )}
             </div>
             
             {!isVertical && (
