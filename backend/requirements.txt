@@ -9,5 +9,11 @@ SQLAlchemy==2.0.23
 # Utilities
 python-dotenv==1.0.0
 
+# Automation and Scheduling
+APScheduler==3.10.4
+
+# HTTP Requests (for frontend integration examples)
+requests==2.31.0
+
 # For production deployment (optional)
 gunicorn==21.2.0

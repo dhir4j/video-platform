@@ -26,11 +26,24 @@ FLASK_DEBUG = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
 BATCH_SIZE = 100  # Process articles in batches to manage memory
 MAX_WORKERS = 4   # Number of parallel workers for processing
 
+# Frontend/Backend URLs
+BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:5000')  # e.g., https://myserverwebsite.com
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:3000')  # e.g., https://frontendwebsite.com
+
+# CORS Configuration
+# Allow requests from frontend domain
+CORS_ORIGINS = os.getenv('CORS_ORIGINS', FRONTEND_URL).split(',')
+
 # SEO Configuration
-SITE_URL = os.getenv('SITE_URL', 'https://www.ytplatform.com')
+SITE_URL = os.getenv('SITE_URL', FRONTEND_URL)  # Use frontend URL for SEO
 SITE_NAME = os.getenv('SITE_NAME', 'YT Platform')
 SITE_DESCRIPTION = 'Discover amazing video content across various categories'
 DEFAULT_IMAGE = f'{SITE_URL}/default-thumbnail.jpg'
+
+# Automation Configuration
+AUTO_PROCESS_ENABLED = os.getenv('AUTO_PROCESS_ENABLED', 'True').lower() == 'true'
+CHECK_INTERVAL_MINUTES = int(os.getenv('CHECK_INTERVAL_MINUTES', 5))  # Check for updates every 5 minutes
+CRON_SCHEDULE = os.getenv('CRON_SCHEDULE', '')  # Optional cron expression (e.g., "0 */6 * * *")
 
 # Logging configuration
 LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')

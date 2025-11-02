@@ -15,6 +15,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 import config
 from models import db, Post, ProcessingLog
 from services.post_processor import PostProcessor
+from services.file_watcher import DataFileMonitor
+from services.scheduler import AutomationScheduler
 
 
 # Configure logging
@@ -46,7 +48,16 @@ def create_app():
     app.config['JSON_SORT_KEYS'] = False
 
     # Enable CORS for frontend integration
-    CORS(app)
+    # Allow requests from configured frontend domains
+    CORS(app, resources={
+        r"/api/*": {
+            "origins": config.CORS_ORIGINS,
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"],
+            "supports_credentials": True
+        }
+    })
+    logger.info(f"CORS enabled for origins: {config.CORS_ORIGINS}")
 
     # Initialize database
     db.init_app(app)
@@ -61,6 +72,36 @@ def create_app():
 
 # Create application instance
 app = create_app()
+
+# Initialize automation components (only if enabled)
+data_monitor = None
+automation_scheduler = None
+
+if config.AUTO_PROCESS_ENABLED:
+    logger.info("Initializing automation components")
+
+    # Create data file monitor
+    data_monitor = DataFileMonitor(
+        app=app,
+        file_path=config.SCRAPED_DATA_FILE,
+        check_interval=config.CHECK_INTERVAL_MINUTES * 60  # Convert to seconds
+    )
+
+    # Create and start scheduler
+    automation_scheduler = AutomationScheduler(
+        app=app,
+        data_file_monitor=data_monitor
+    )
+
+    automation_scheduler.start(check_interval_minutes=config.CHECK_INTERVAL_MINUTES)
+
+    # Add cron job if specified
+    if config.CRON_SCHEDULE:
+        automation_scheduler.add_cron_job(config.CRON_SCHEDULE)
+
+    logger.info("Automation enabled and started")
+else:
+    logger.info("Automation disabled (AUTO_PROCESS_ENABLED=False)")
 
 
 # ============================================================================
@@ -426,6 +467,154 @@ def get_categories():
     except Exception as e:
         logger.error(f"Error getting categories: {str(e)}")
         return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/automation/status', methods=['GET'])
+def get_automation_status():
+    """
+    Get automation system status.
+
+    Returns:
+        Status of file monitor and scheduler
+    """
+    try:
+        if not config.AUTO_PROCESS_ENABLED:
+            return jsonify({
+                'enabled': False,
+                'message': 'Automation is disabled'
+            }), 200
+
+        status = {
+            'enabled': True,
+            'scheduler': automation_scheduler.get_status() if automation_scheduler else None,
+            'file_monitor': data_monitor.get_status() if data_monitor else None,
+            'config': {
+                'check_interval_minutes': config.CHECK_INTERVAL_MINUTES,
+                'data_file': str(config.SCRAPED_DATA_FILE),
+                'cron_schedule': config.CRON_SCHEDULE or None
+            }
+        }
+
+        return jsonify(status), 200
+
+    except Exception as e:
+        logger.error(f"Error getting automation status: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/automation/check-now', methods=['POST'])
+def check_now():
+    """
+    Manually trigger a check for data file updates.
+    Processes data if file has changed since last check.
+
+    Returns:
+        Result of the check operation
+    """
+    try:
+        if not config.AUTO_PROCESS_ENABLED or not data_monitor:
+            return jsonify({
+                'status': 'error',
+                'message': 'Automation is not enabled'
+            }), 400
+
+        logger.info("Manual check triggered via API")
+
+        # Check for updates
+        changed = data_monitor.check_once()
+
+        if changed:
+            return jsonify({
+                'status': 'success',
+                'message': 'Data file updated - processing completed',
+                'processed': True
+            }), 200
+        else:
+            return jsonify({
+                'status': 'success',
+                'message': 'No changes detected in data file',
+                'processed': False
+            }), 200
+
+    except Exception as e:
+        logger.error(f"Error in manual check: {str(e)}", exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+
+@app.route('/api/webhook/data-updated', methods=['POST'])
+def webhook_data_updated():
+    """
+    Webhook endpoint for external automation scripts.
+    Call this endpoint after updating the JSON file to trigger processing.
+
+    Optional request body:
+        {
+            "source": "automation_script",
+            "force": true  // Force processing even if file hasn't changed
+        }
+
+    Returns:
+        Processing results
+    """
+    try:
+        data = request.get_json() or {}
+        source = data.get('source', 'unknown')
+        force = data.get('force', False)
+
+        logger.info(f"Webhook triggered by: {source}")
+
+        if force:
+            # Force processing regardless of file changes
+            logger.info("Force processing requested")
+
+            with app.app_context():
+                processor = PostProcessor(app=app)
+                stats = processor.process_all_data()
+
+            return jsonify({
+                'status': 'success',
+                'message': 'Forced processing completed',
+                'statistics': stats
+            }), 200
+        else:
+            # Check if file changed before processing
+            if not config.AUTO_PROCESS_ENABLED or not data_monitor:
+                # If automation is disabled, just process the data
+                with app.app_context():
+                    processor = PostProcessor(app=app)
+                    stats = processor.process_all_data()
+
+                return jsonify({
+                    'status': 'success',
+                    'message': 'Processing completed',
+                    'statistics': stats
+                }), 200
+            else:
+                # Use monitor to check and process if changed
+                changed = data_monitor.check_once()
+
+                if changed:
+                    return jsonify({
+                        'status': 'success',
+                        'message': 'Data updated and processed',
+                        'processed': True
+                    }), 200
+                else:
+                    return jsonify({
+                        'status': 'success',
+                        'message': 'No changes detected',
+                        'processed': False
+                    }), 200
+
+    except Exception as e:
+        logger.error(f"Webhook error: {str(e)}", exc_info=True)
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 
 # Error handlers
