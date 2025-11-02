@@ -1,0 +1,115 @@
+{
+    "947": {
+        "page_number": 947,
+        "total_articles": 14,
+        "scraped_articles": 14,
+        "articles": {
+            "1": {
+                "url": "https://www.ytplatform.com/videos/cooking-tutorial-make-delicious-pasta-carbonara-in-20-minutes/",
+                "thumbnail": "https://www.ytplatform.com/wp-content/uploads/2024/03/pasta-carbonara-tutorial.gif",
+                "title": "Cooking Tutorial: Make Delicious Pasta Carbonara In 20 Minutes",
+                "body": "Learn how to make authentic Italian pasta carbonara in just 20 minutes. This step-by-step cooking tutorial shows you the proper technique for creating creamy, delicious carbonara with simple ingredients. Perfect for busy weeknights or impressive dinner parties.",
+                "video": "https://cdn.ytplatform.com/2024/03/cooking-tutorial-pasta-carbonara-20-minutes.mp4",
+                "video_width": 444,
+                "video_height": 251,
+                "video_duration": "5:58",
+                "video_duration_seconds": 358.48,
+                "video_type": "video",
+                "category": [
+                    "Cooking"
+                ],
+                "tags": [
+                    "cooking tutorial",
+                    "pasta recipe",
+                    "italian food",
+                    "quick meals",
+                    "cooking for beginners",
+                    "weeknight dinner",
+                    "carbonara",
+                    "italian cuisine",
+                    "easy recipes",
+                    "cooking tips"
+                ]
+            },
+            "2": {
+                "url": "https://www.ytplatform.com/videos/beginner-yoga-morning-routine-15-minutes/",
+                "thumbnail": "https://www.ytplatform.com/wp-content/uploads/2024/03/beginner-yoga-morning-routine.gif",
+                "title": "Beginner Yoga Morning Routine - 15 Minutes",
+                "body": "Start your day with this gentle 15-minute yoga routine perfect for beginners. This session will help you wake up your body, improve flexibility, and set a positive tone for your entire day. No experience or special equipment needed.",
+                "video": "https://cdn.ytplatform.com/2024/03/beginner-yoga-morning-routine-15-minutes.mp4",
+                "video_width": 640,
+                "video_height": 360,
+                "video_duration": "4:10",
+                "video_duration_seconds": 250.89,
+                "video_type": "video",
+                "category": [
+                    "Fitness"
+                ],
+                "tags": [
+                    "yoga for beginners",
+                    "morning routine",
+                    "fitness",
+                    "flexibility",
+                    "wellness",
+                    "home workout",
+                    "stress relief",
+                    "mindfulness",
+                    "daily exercise"
+                ]
+            },
+            "3": {
+                "url": "https://www.ytplatform.com/videos/diy-home-organization-ideas-small-apartments/",
+                "thumbnail": "https://www.ytplatform.com/wp-content/uploads/2024/03/diy-home-organization-small-spaces.gif",
+                "title": "DIY Home Organization Ideas For Small Apartments",
+                "body": "Transform your small living space with these creative and budget-friendly DIY organization solutions. Learn how to maximize every inch of your apartment with clever storage hacks and space-saving ideas that are both functional and stylish.",
+                "video": "https://cdn.ytplatform.com/2024/03/diy-home-organization-small-apartments.mp4",
+                "video_width": 374,
+                "video_height": 280,
+                "video_duration": "43:48",
+                "video_duration_seconds": 2628,
+                "video_type": "video",
+                "category": [
+                    "DIY"
+                ],
+                "tags": [
+                    "home organization",
+                    "diy projects",
+                    "small spaces",
+                    "apartment living",
+                    "storage solutions",
+                    "home decor",
+                    "budget friendly",
+                    "organization hacks",
+                    "space saving",
+                    "home improvement"
+                ]
+            },
+            "4": {
+                "url": "https://www.ytplatform.com/videos/learn-python-programming-beginners-tutorial/",
+                "thumbnail": "https://www.ytplatform.com/wp-content/uploads/2024/03/python-programming-beginners-tutorial.gif",
+                "title": "Learn Python Programming - Complete Beginners Tutorial",
+                "body": "Start your programming journey with this comprehensive Python tutorial for absolute beginners. Learn the fundamentals of Python programming including variables, loops, functions, and basic data structures. Perfect for anyone wanting to learn coding from scratch.",
+                "video": "https://cdn.ytplatform.com/2024/03/learn-python-programming-beginners-tutorial.mp4",
+                "video_width": 370,
+                "video_height": 303,
+                "video_duration": "13:00",
+                "video_duration_seconds": 780.28,
+                "video_type": "video",
+                "category": [
+                    "Education"
+                ],
+                "tags": [
+                    "python programming",
+                    "coding tutorial",
+                    "programming for beginners",
+                    "learn to code",
+                    "computer science",
+                    "software development",
+                    "coding basics",
+                    "programming fundamentals",
+                    "tech education"
+                ]
+            }
+        }
+    }
+}
