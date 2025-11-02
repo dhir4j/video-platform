@@ -17,6 +17,10 @@ from utils.seo_utils import (
     generate_meta_description,
     generate_meta_keywords,
     generate_complete_structured_data,
+    generate_article_structured_data,
+    generate_long_tail_keywords,
+    generate_canonical_url,
+    extract_focus_keyword,
     validate_required_fields
 )
 import config
@@ -123,10 +127,30 @@ class PostProcessor:
             categories = article.get('category', [])
             tags = article.get('tags', [])
 
-            # Generate SEO metadata
-            meta_title = generate_meta_title(article['title'])
-            meta_description = generate_meta_description(article['body'])
+            # Generate SEO metadata for search ranking
+            meta_title = generate_meta_title(
+                article['title'],
+                add_suffix=True,
+                site_name=config.SITE_NAME
+            )
+            meta_description = generate_meta_description(
+                article['body'],
+                title=article['title']
+            )
             meta_keywords = generate_meta_keywords(tags, categories)
+
+            # Generate canonical URL (prevents duplicate content)
+            canonical_url = generate_canonical_url(config.SITE_URL, slug)
+
+            # Extract focus keyword (primary ranking keyword)
+            focus_keyword = extract_focus_keyword(article['title'], tags)
+
+            # Generate long-tail keywords for ranking
+            long_tail_keywords = generate_long_tail_keywords(
+                article['title'],
+                tags,
+                categories
+            )
 
             # Create post object
             post = Post(
@@ -146,15 +170,19 @@ class PostProcessor:
                 meta_title=meta_title,
                 meta_description=meta_description,
                 meta_keywords=meta_keywords,
+                canonical_url=canonical_url,
+                focus_keyword=focus_keyword,
                 is_published=True,
                 processing_status='success'
             )
 
-            # Set categories and tags
+            # Set categories, tags, and long-tail keywords
             post.set_categories(categories)
             post.set_tags(tags)
+            post.set_long_tail_keywords(long_tail_keywords)
 
-            # Generate structured data
+            # Generate complete structured data (Video + Article + Breadcrumb)
+            # This helps with Google rich results and search ranking
             post_data = {
                 'title': post.title,
                 'body': post.body,
@@ -167,12 +195,38 @@ class PostProcessor:
                 'slug': slug
             }
 
+            # Video + Breadcrumb structured data
             structured_data = generate_complete_structured_data(
                 post_data=post_data,
                 site_url=config.SITE_URL,
                 site_name=config.SITE_NAME
             )
-            post.structured_data = structured_data
+
+            # Add Article schema for better search ranking
+            article_schema = generate_article_structured_data(
+                title=post.title,
+                description=post.body,
+                author_name=config.SITE_NAME,
+                site_name=config.SITE_NAME,
+                site_url=config.SITE_URL,
+                slug=slug,
+                thumbnail_url=post.thumbnail or config.DEFAULT_IMAGE,
+                publish_date=datetime.utcnow(),
+                modified_date=datetime.utcnow(),
+                categories=categories,
+                tags=tags
+            )
+
+            # Combine all structured data
+            import json
+            all_schemas = json.loads(structured_data)
+            all_schemas.append(article_schema)
+            post.structured_data = json.dumps(all_schemas, indent=2)
+
+            logger.debug(
+                f"Generated SEO data - Focus: '{focus_keyword}', "
+                f"Long-tail: {len(long_tail_keywords)} keywords"
+            )
 
             return post, None
 

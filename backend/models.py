@@ -45,11 +45,14 @@ class Post(db.Model):
     categories = db.Column(db.Text, nullable=True)  # JSON array stored as text
     tags = db.Column(db.Text, nullable=True)  # JSON array stored as text
 
-    # SEO fields
+    # SEO fields (for search ranking)
     meta_title = db.Column(db.String(255), nullable=True)
     meta_description = db.Column(db.String(512), nullable=True)
     meta_keywords = db.Column(db.Text, nullable=True)
-    structured_data = db.Column(db.Text, nullable=True)  # JSON-LD schema
+    canonical_url = db.Column(db.String(512), nullable=True)  # Prevents duplicate content
+    focus_keyword = db.Column(db.String(255), nullable=True, index=True)  # Primary ranking keyword
+    long_tail_keywords = db.Column(db.Text, nullable=True)  # JSON array of long-tail keywords
+    structured_data = db.Column(db.Text, nullable=True)  # JSON-LD schema (Article + Video + Breadcrumb)
 
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
@@ -82,6 +85,14 @@ class Post(db.Model):
         """Retrieve tags as Python list"""
         return json.loads(self.tags) if self.tags else []
 
+    def set_long_tail_keywords(self, keywords_list):
+        """Store long-tail keywords as JSON string"""
+        self.long_tail_keywords = json.dumps(keywords_list) if keywords_list else None
+
+    def get_long_tail_keywords(self):
+        """Retrieve long-tail keywords as Python list"""
+        return json.loads(self.long_tail_keywords) if self.long_tail_keywords else []
+
     def to_dict(self):
         """Convert model to dictionary for JSON serialization"""
         return {
@@ -101,9 +112,13 @@ class Post(db.Model):
             'video_type': self.video_type,
             'categories': self.get_categories(),
             'tags': self.get_tags(),
+            # SEO fields for ranking
             'meta_title': self.meta_title,
             'meta_description': self.meta_description,
             'meta_keywords': self.meta_keywords,
+            'canonical_url': self.canonical_url,
+            'focus_keyword': self.focus_keyword,
+            'long_tail_keywords': self.get_long_tail_keywords(),
             'structured_data': json.loads(self.structured_data) if self.structured_data else None,
             'is_published': self.is_published,
             'created_at': self.created_at.isoformat() if self.created_at else None,

@@ -617,6 +617,62 @@ def webhook_data_updated():
         }), 500
 
 
+@app.route('/sitemap.xml', methods=['GET'])
+def generate_sitemap():
+    """
+    Generate XML sitemap for search engines (Google, Bing).
+    Helps search engines discover and index all video pages.
+
+    Returns:
+        XML sitemap with video metadata
+    """
+    try:
+        from utils.sitemap_generator import generate_sitemap_xml
+
+        # Get all published posts
+        posts = Post.query.filter_by(is_published=True).order_by(Post.created_at.desc()).all()
+
+        # Convert to dict
+        posts_data = [post.to_dict() for post in posts]
+
+        # Generate sitemap XML
+        sitemap_xml = generate_sitemap_xml(posts_data, config.SITE_URL)
+
+        # Return as XML
+        from flask import Response
+        return Response(sitemap_xml, mimetype='application/xml')
+
+    except Exception as e:
+        logger.error(f"Error generating sitemap: {str(e)}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/robots.txt', methods=['GET'])
+def robots_txt():
+    """
+    Generate robots.txt for search engine crawlers.
+    Tells search engines which pages to crawl.
+
+    Returns:
+        robots.txt content
+    """
+    try:
+        from utils.sitemap_generator import generate_robots_txt
+
+        robots_content = generate_robots_txt(
+            site_url=config.SITE_URL,
+            allow_all=True
+        )
+
+        # Return as plain text
+        from flask import Response
+        return Response(robots_content, mimetype='text/plain')
+
+    except Exception as e:
+        logger.error(f"Error generating robots.txt: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+
 # Error handlers
 @app.errorhandler(404)
 def not_found(error):
