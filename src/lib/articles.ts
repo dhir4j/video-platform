@@ -1,4 +1,4 @@
-import scrapedData from '@/../../data/scraped_pages.json';
+import scrapedData from '../../data/scraped_pages.json';
 
 export interface Article {
   id: string;
