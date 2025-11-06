@@ -28,8 +28,22 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.ytplatform.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.ytplatform.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
+  // Output standalone for better Vercel deployment
+  output: 'standalone',
 };
 
 export default nextConfig;
